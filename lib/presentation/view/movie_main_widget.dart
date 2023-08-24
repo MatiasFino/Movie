@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '/constants/ui_constants/text_styles.dart';
-import '/custom_widgets/genres.dart';
-import '/data_classes/movie.dart';
-import '/custom_widgets/top_row.dart';
+import '../../core/utils/ui_constants/text_styles.dart';
+import '../widgets/general_widgets/genres.dart';
+import '../../domain/entity/movie.dart';
+import '../widgets/movie_presentation/top_row.dart';
 
 class MovieMainWidget extends StatelessWidget {
   const MovieMainWidget({

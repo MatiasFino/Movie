@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
-import '../i_genre_repository.dart';
+import '../../domain/repository/i_genre_repository.dart';
 
-class GenresFromJson extends GenresRepository {
+class GenresFromJson implements GenresRepository {
   late Map<int, String> genresById = {};
   static const String genresPath = 'jsonData/genres.json';
 

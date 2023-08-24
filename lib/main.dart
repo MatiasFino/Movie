@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/routes/movie_list.dart';
-import 'routes/movie_main_widget.dart';
-import '/constants/router/router.dart';
+import 'presentation/view/movie_list.dart';
+import 'presentation/view/movie_main_widget.dart';
+import 'config/routes/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,8 +9,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static const double appBarElevation = 0;
-
 
   @override
   Widget build(BuildContext context) {

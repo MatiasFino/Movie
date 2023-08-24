@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '/constants/ui_constants/text_styles.dart';
-import '/custom_widgets/genres.dart';
-import '/custom_widgets/stars.dart';
+import '../../../core/utils/ui_constants/text_styles.dart';
+import '../general_widgets/genres.dart';
+import '../general_widgets/stars.dart';
 
 class MovieRowPreview extends StatelessWidget {
   final String moviePoster;
