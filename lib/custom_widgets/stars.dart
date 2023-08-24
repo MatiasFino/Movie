@@ -56,6 +56,6 @@ class Stars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: _filledStars());
+    return Wrap(children: _filledStars());
   }
 }

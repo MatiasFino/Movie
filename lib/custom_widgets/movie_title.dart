@@ -1,43 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-extension IterableColors on List<Color> {
-  static int index = 0;
-
-  Color next() {
-    index = index == length - 1 ? 0 : ++index;
-    return this[index];
-  }
-}
-
-extension MarioLetters on List<TextSpan> {
-  List<TextSpan> parseTitle(List<Color> c, String movieTitle) {
-    List<TextSpan> parsed = [];
-    String title = movieTitle;
-    List<TextSpan> currentWord = [];
-    title.split('').forEach((element) {
-      if (element != ' ') {
-        currentWord.add(TextSpan(
-          text: element,
-          style: TextStyle(
-            color: c.next(),
-            fontFamily: 'SuperMario256',
-            fontSize: 38,
-          ),
-        ));
-      } else {
-        parsed.add(
-          TextSpan(
-            text: '   ',
-            children: currentWord,
-          ),
-        );
-        currentWord = [];
-      }
-    });
-    return parsed;
-  }
-}
 
 class MovieTitle extends StatelessWidget {
   final String movieTitle;
@@ -56,15 +17,67 @@ class MovieTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<TextSpan> p = [];
+    List<TextSpan> title = [];
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-        children: p.parseTitle(
+        children: title.parseTitle(
           colors,
           movieTitle,
         ),
       ),
     );
+  }
+}
+
+extension IterableColors on List<Color> {
+  static int index = 0;
+
+  Color next() {
+    index = index == length - 1 ? 0 : ++index;
+    return this[index];
+  }
+}
+
+extension MarioLetters on List<TextSpan> {
+  static const double marioFontSize = 38;
+
+  List<TextSpan> parseTitle(List<Color> c, String movieTitle) {
+    List<TextSpan> parsed = [];
+    List<TextSpan> currentWord = [];
+    if (movieTitle == "The Super Mario Bros. Movie") {
+      movieTitle.split('').forEach((letter) {
+        if (letter != ' ') {
+          currentWord.add(TextSpan(
+            text: letter,
+            style: TextStyle(
+              color: c.next(),
+              fontFamily: 'SuperMario256',
+              fontSize: marioFontSize,
+            ),
+          ));
+        } else {
+          parsed.add(
+            TextSpan(
+              text: '   ',
+              children: currentWord,
+            ),
+          );
+          currentWord = [];
+        }
+      });
+    } else {
+      parsed.add(
+        TextSpan(
+          text: movieTitle,
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'Trillium Web',
+            fontSize: 38,
+          ),
+        ),
+      );
+    }
+    return parsed;
   }
 }

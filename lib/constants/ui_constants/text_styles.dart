@@ -14,9 +14,21 @@ class MovieTextStyles {
 
   static const TextStyle dateTextStyle = TextStyle(color: Colors.grey);
 
-  static const genresTextStyle = TextStyle(
+  static const movieTitleTextStyle = TextStyle(
     color: Colors.white,
     fontWeight: FontWeight.bold,
     fontSize: 22,
+  );
+
+  static const moviePreviewTitleTextStyle = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    fontSize: 20,
+  );
+
+  static const genresPreviewTextStyle = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    fontSize: 15,
   );
 }

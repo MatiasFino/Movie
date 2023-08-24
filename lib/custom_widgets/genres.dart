@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import '../ui_constants/text_styles.dart';
 
-class WidgetedGenres extends StatelessWidget {
+class GenresToScrollableList extends StatelessWidget {
   final List<String> genres;
+  final TextStyle style;
 
-  const WidgetedGenres(
-    this.genres, {
+  const GenresToScrollableList({
+    required this.style,
+    required this.genres,
     super.key,
   });
 
   static const double genresWordLeftPadding = 20;
 
-  List<Widget> _createWidgets() {
+  List<Widget> _createGenresList() {
     return genres
         .map(
-          (e) => Padding(
+          (genre) => Padding(
             padding: const EdgeInsets.only(left: genresWordLeftPadding),
             child: Text(
-              e,
-              style: MovieTextStyles.genresTextStyle,
+              genre.toString(),
+              style: style,
             ),
           ),
         )
@@ -28,8 +29,9 @@ class WidgetedGenres extends StatelessWidget {
   @override
   build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
-      children: _createWidgets(),
+      children: _createGenresList(),
     );
   }
 }
