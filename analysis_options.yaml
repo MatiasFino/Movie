@@ -4,10 +4,17 @@ analyzer:
 
 linter:
   rules:
+    prefer_conditional_assignment : true
+    annotate_overrides: true
+    unrelated_type_equality_checks: true
+    file_names : true
+    camel_case_types: true
+    prefer_relative_imports: true
+    require_trailing_commas: true
+    package_names: true
+    eol_at_end_of_file: true
+    always_declare_return_types: true
     prefer_const_constructors: true
     prefer_const_declarations: true
     avoid_redundant_argument_values: true
-    prefer_relative_imports: true
-    depend_on_referenced_packages: false
-    library_private_types_in_public_api: false
-    use_build_context_synchronously: false
+    avoid_relative_lib_imports: true

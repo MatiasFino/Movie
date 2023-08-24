@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
-import '../i_movie_repository.dart';
-import '../../../data_classes/movie.dart';
+import '../../domain/repository/i_movie_repository.dart';
+import '../../domain/entity/movie.dart';
 
-class MoviesFromJson extends MovieRepository {
+class MoviesFromJson implements MovieRepository {
   static const moviesPath = 'jsonData/movies.json';
   List<Movie> parsedMovies = [];
 

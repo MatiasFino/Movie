@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/constants/router/router.dart';
-import '/data_classes/movie.dart';
-import '/custom_widgets/movie_preview.dart';
-import '../repositories/movie/i_movie_repository.dart';
-import '../repositories/movie/Impl/movie_from_json.dart';
-import '../repositories/genre/i_genre_repository.dart';
-import '../repositories/genre/Impl/genre_from_json.dart';
+import '../../config/routes/router.dart';
+import '../../domain/entity/movie.dart';
+import '../widgets/movie_list_presentation/movie_preview.dart';
+import '../../domain/repository/i_movie_repository.dart';
+import '../../data/repository/movie_from_json.dart';
+import '../../domain/repository/i_genre_repository.dart';
+import '../../data/repository/genre_from_json.dart';
 
 class MovieList extends StatefulWidget {
   const MovieList({super.key});
@@ -60,8 +60,9 @@ class _MovieListWidgetState extends State<MovieList> {
                 color: Colors.transparent,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white24)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white24),
+                  ),
                   onPressed: () {
                     Navigator.pushNamed(
                       context,

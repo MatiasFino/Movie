@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'save_movie_button.dart';
-import 'stars.dart';
-import '/constants/ui_constants/text_styles.dart';
+import '../general_widgets/stars.dart';
+import '../../../core/utils/ui_constants/text_styles.dart';
 import 'like_counter.dart';
 
 class TopRow extends StatelessWidget {

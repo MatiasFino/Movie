@@ -27,7 +27,7 @@ class GenresToScrollableList extends StatelessWidget {
   }
 
   @override
-  build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
