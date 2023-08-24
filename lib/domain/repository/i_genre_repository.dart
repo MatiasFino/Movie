@@ -1,5 +1,6 @@
-abstract class GenresRepository {
-  Future<String?> getGenre(int id);
+import '../../core/utils/data_state.dart';
 
-  Future<Map<int, String>> getGenres();
+abstract class GenresRepository {
+  const GenresRepository();
+  Future<DataState<Map<int,String>>> getGenres();
 }

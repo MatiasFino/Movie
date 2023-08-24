@@ -1,4 +1,5 @@
-class Movie {
+
+class  MovieEntity{
   final bool adult;
   final String backdrop;
   final List<int> genres;
@@ -15,7 +16,7 @@ class Movie {
   final int voteCount;
   int likes = 0;
 
-  Movie({
+  MovieEntity({
     required this.adult,
     required this.backdrop,
     required this.genres,
@@ -32,22 +33,28 @@ class Movie {
     required this.voteCount,
   });
 
-  factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-        adult: json['adult'],
-        backdrop: json['backdrop_path'],
-        genres: json['genre_ids'].cast<int>(),
-        id: json['id'],
-        originalLanguage: json['original_language'],
-        originalTitle: json['original_title'],
-        overview: json['overview'],
-        popularity: json['popularity'],
-        poster: json['poster_path'],
-        releaseDate: DateTime.parse(json['release_date']),
-        title: json['title'],
-        video: json['video'],
-        voteAverage: json['vote_average'].toDouble(),
-        voteCount: json['vote_count'],
-      );
+  @override
+  bool operator == (Object other) =>
+          other is MovieEntity &&
+              id == other.id ;
+
+  @override
+  int get hashCode =>
+      adult.hashCode ^
+      backdrop.hashCode ^
+      genres.hashCode ^
+      id.hashCode ^
+      originalLanguage.hashCode ^
+      originalTitle.hashCode ^
+      overview.hashCode ^
+      popularity.hashCode ^
+      poster.hashCode ^
+      releaseDate.hashCode ^
+      title.hashCode ^
+      video.hashCode ^
+      voteAverage.hashCode ^
+      voteCount.hashCode;
+
 
   String get formattedReleaseDate =>
       '${releaseDate.day}/${releaseDate.month}/${releaseDate.year}';
@@ -58,7 +65,7 @@ class Movie {
 
   void addLike() async => likes++;
 
-  factory Movie.defaultMovie() => Movie(
+  factory MovieEntity.defaultMovie() => MovieEntity(
         adult: false,
         backdrop: "9n2tJBplPbgR2ca05hS5CKXwP2c.jpg",
         genres: [
@@ -86,11 +93,11 @@ class Movie {
 }
 
 class MovieUI {
-  final Movie movie;
+  final MovieEntity movie;
   final List<String> genres;
 
-  MovieUI(
-    this.movie,
-    this.genres,
-  );
+  const MovieUI({
+    required this.movie,
+    required this.genres,
+  });
 }
