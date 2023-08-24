@@ -1,4 +1,5 @@
 class MyRouter {
-  static const String movieList = 'listPreview';
-  static const String movieView = "MovieView";
+  static const String movieList = '/list_preview';
+  static const String movieView = "/movie_view";
+  static const String movieGrid = "/grid_preview";
 }

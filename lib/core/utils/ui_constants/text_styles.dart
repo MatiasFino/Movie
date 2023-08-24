@@ -31,4 +31,10 @@ class MovieTextStyles {
     fontWeight: FontWeight.bold,
     fontSize: 15,
   );
+
+  static const TextStyle categoriesTextStyle = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    fontSize: 30,
+  );
 }

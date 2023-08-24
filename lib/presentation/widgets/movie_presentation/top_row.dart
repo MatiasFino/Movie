@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/ui_constants/keys.dart';
 import 'save_movie_button.dart';
 import '../general_widgets/stars.dart';
 import '../../../core/utils/ui_constants/text_styles.dart';
@@ -47,7 +48,10 @@ class TopRow extends StatelessWidget {
           child: Row(
             children: [
               const SaveMovieButton(),
-              LikeCounter(likes),
+              LikeCounter(
+                key: likeCounterKey,
+                likes,
+              ),
               Column(
                 children: [
                   Text(

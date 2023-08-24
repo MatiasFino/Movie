@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/ui_constants/keys.dart';
+
 class SaveMovieButton extends StatefulWidget {
   const SaveMovieButton({
     super.key,
@@ -13,11 +15,13 @@ class _SaveWidgetState extends State<SaveMovieButton> {
   static bool _saved = false;
 
   static const Icon filledIcon = Icon(
+    key: saveMovieButtonFilledIconKey,
     Icons.bookmark,
     color: Colors.white,
   );
 
   static const Icon hollowIcon = Icon(
+    key: saveMovieButtonHollowIconKey,
     Icons.bookmark_border,
     color: Colors.white,
   );

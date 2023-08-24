@@ -1,7 +1,10 @@
+import '../../core/utils/data_state.dart';
 import '../entity/movie.dart';
 
 abstract class MovieRepository {
-  Future<List<Movie>> getMovies();
 
-  Future<Movie> getMovieById(int id);
+  Future<DataState<List<MovieEntity>>> getMovies(EndPoint endPoint);
+  const MovieRepository();
 }
+
+
