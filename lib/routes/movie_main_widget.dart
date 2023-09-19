@@ -1,73 +1,89 @@
 import 'package:flutter/material.dart';
-import '/ui_constants/text_styles.dart';
+import '/constants/ui_constants/text_styles.dart';
 import '/custom_widgets/genres.dart';
 import '/data_classes/movie.dart';
-import '/custom_widgets/movie_title.dart';
 import '/custom_widgets/top_row.dart';
 
 class MovieMainWidget extends StatelessWidget {
   const MovieMainWidget({
     super.key,
-    required this.movie,
   });
-
-  final Movie movie;
 
   static const double topRowTopPadding = 150;
   static const double topRowLeftPadding = 10;
   static const double movieGenresPadding = 30;
   static const double largeTopPadding = 35;
   static const double genresSizeBoxHeight = 25;
+  static const double appBarElevation = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          children: [
-            Container(
-              alignment: Alignment.topCenter,
-              child: Image.network(movie.backdrop),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: topRowTopPadding,
-                left: topRowLeftPadding,
+    final MovieUI movieUI =
+        ModalRoute.of(context)?.settings.arguments as MovieUI;
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: appBarElevation,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: Colors.transparent,
+      ),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                alignment: Alignment.topCenter,
+                child: Image.network(movieUI.movie.backdropUrl),
               ),
-              child: TopRow(
-                likes: movie.likes,
-                poster: movie.poster,
-                voteAverage: movie.voteAverage,
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: topRowTopPadding,
+                  left: topRowLeftPadding,
+                ),
+                child: TopRow(
+                  likes: movieUI.movie.likes,
+                  poster: movieUI.movie.posterUrl,
+                  voteAverage: movieUI.movie.voteAverage,
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: movieGenresPadding),
+            child: SizedBox(
+              height: genresSizeBoxHeight,
+              child: GenresToScrollableList(
+                genres: movieUI.genres,
+                style: MovieTextStyles.movieTitleTextStyle,
               ),
             ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: movieGenresPadding),
-          child: SizedBox(
-            height: genresSizeBoxHeight,
-            child: WidgetedGenres(movie.genres),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: largeTopPadding),
-          child: MovieTitle(movie.title),
-        ),
-        Text(
-          movie.formattedReleaseDate,
-          style: const TextStyle(
-            color: Colors.grey,
+          Padding(
+            padding: const EdgeInsets.only(top: largeTopPadding),
+            child: Text(movieUI.movie.title),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: largeTopPadding),
-          child: Text(
-            movie.overview,
-            style: MovieTextStyles.overviewTextStyle,
-            textAlign: TextAlign.center,
+          Text(
+            movieUI.movie.formattedReleaseDate,
+            style: const TextStyle(
+              color: Colors.grey,
+            ),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: largeTopPadding),
+            child: Text(
+              movieUI.movie.overview,
+              style: MovieTextStyles.overviewTextStyle,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
