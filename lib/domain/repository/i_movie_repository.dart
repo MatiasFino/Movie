@@ -1,7 +1,18 @@
+import 'package:dartz/dartz.dart';
+
 import '../entity/movie.dart';
 
 abstract class MovieRepository {
-  Future<List<Movie>> getMovies();
 
-  Future<Movie> getMovieById(int id);
+  Future<Either<String,List<MovieEntity>>> getMovies(EndPoint endPoint);
+
+  Future<Either<String,MovieEntity>> getMovieById(int id);
+
+}
+
+enum EndPoint {
+  POPULAR,
+  TOP_RATED,
+  UPCOMING,
+  NOW_PLAYING,
 }

@@ -17,12 +17,12 @@ class MovieList extends StatefulWidget {
 class _MovieListWidgetState extends State<MovieList> {
   final MovieRepository movieRepository = MoviesFromJson();
   final GenresRepository genresRepository = GenresFromJson();
-  late final Future<List<Movie>> movies;
+  late final Future<List<MovieEntity>> movies;
 
   late final Future<List<MovieUI>> moviesFromRepo;
 
   Future<List<MovieUI>> getMovies() async {
-    List<Movie> movies = await movieRepository.getMovies();
+    List<MovieEntity> movies = await movieRepository.getMovies();
     Map<int, String> genres = await genresRepository.getGenres();
     return movies
         .map(
