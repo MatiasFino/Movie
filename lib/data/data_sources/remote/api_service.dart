@@ -1,5 +1,4 @@
 import 'package:http/http.dart';
-
 import 'api_const.dart';
 
 class MovieService {

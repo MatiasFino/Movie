@@ -5,13 +5,14 @@ import 'package:http/http.dart';
 
 import '../../domain/entity/movie.dart';
 import '../../domain/repository/i_movie_repository.dart';
+import '../../domain/use_cases/use_case_interface.dart';
 import '../data_sources/mappers/api_dto.dart';
 import '../data_sources/remote/api_service.dart';
 import '../model/model.dart';
 
 class MoviesFromAPI extends MovieRepository {
   @override
-  Future<Either<String, MovieEntity>> getMovieById(int id) async {
+  Future<EitherMovie<MovieEntity>> getMovieById(int id) async {
     Response res = await MovieService.getMovieById(id);
     return res.statusCode == 200
         ? right(
@@ -22,12 +23,15 @@ class MoviesFromAPI extends MovieRepository {
                 .map((movie) => ApiDTO.toMovieEntity(movie)),
           )
         : left(
-            'A problem has occurred while fetching the movie $id, Response status code: ${res.statusCode}',
+            Failure(
+              res.statusCode,
+              res.body,
+            ),
           );
   }
 
   @override
-  Future<Either<String, List<MovieEntity>>> getMovies(EndPoint endPoint) async {
+  Future<EitherMovie<List<MovieEntity>>> getMovies(EndPoint endPoint) async {
     Response res;
     switch (endPoint) {
       case EndPoint.POPULAR:
@@ -44,11 +48,14 @@ class MoviesFromAPI extends MovieRepository {
             List.from(
               jsonDecode(res.body)['results']
                   .map((jsonMovie) => MovieModel.fromJson(jsonMovie)),
-            ).map((movie) => ApiDTO.toMovieEntity(movie)).toList(),
+            ).map((movieModel) => ApiDTO.toMovieEntity(movieModel)).toList(),
           )
         : left(
-            'A problem has occurred while calling the movie api, Response status code = ${res.statusCode}',
-          );
+      Failure(
+        res.statusCode,
+        res.body,
+      ),
+    );
   }
 }
 

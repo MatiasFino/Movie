@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 
 import '../entity/movie.dart';
+import '../use_cases/use_case_interface.dart';
 
 abstract class MovieRepository {
 
-  Future<Either<String,List<MovieEntity>>> getMovies(EndPoint endPoint);
+  Future<EitherMovie<List<MovieEntity>>> getMovies(EndPoint endPoint);
 
-  Future<Either<String,MovieEntity>> getMovieById(int id);
+  Future<EitherMovie<MovieEntity>> getMovieById(int id);
 
 }
 
