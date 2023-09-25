@@ -4,32 +4,32 @@ import '../entity/movie.dart';
 
 abstract class GetMovieDetailsUseCase {
 
-  Future<EitherMovie<MovieEntity>> run(int id);
+  Future<EitherMovieAPI<MovieEntity>> run(int id);
 }
 
 abstract class GetPopularMoviesUseCase{
 
-  Future<EitherMovie<List<MovieEntity>>> run();
+  Future<EitherMovieAPI<List<MovieEntity>>> run();
 }
 
 abstract class GetNowPlayingMoviesUseCase{
 
-  Future<EitherMovie<List<MovieEntity>>> run();
+  Future<EitherMovieAPI<List<MovieEntity>>> run();
 }
 
 abstract class GetTopRatedMoviesUseCase{
 
-  Future<EitherMovie<List<MovieEntity>>> run();
+  Future<EitherMovieAPI<List<MovieEntity>>> run();
 }
 
 abstract class GetUpcomingMoviesUseCase{
 
-  Future<EitherMovie<List<MovieEntity>>> run();
+  Future<EitherMovieAPI<List<MovieEntity>>> run();
 }
 
 abstract class GetSimilarMoviesUseCase{
 
-  Future<EitherMovie<List<MovieEntity>>> run();
+  Future<EitherMovieAPI<List<MovieEntity>>> run();
 }
 
 class Failure {
@@ -42,4 +42,4 @@ class Failure {
       );
 }
 
-typedef EitherMovie<T> = Either<Failure, T>;
+typedef EitherMovieAPI<T> = Either<Failure, T>;

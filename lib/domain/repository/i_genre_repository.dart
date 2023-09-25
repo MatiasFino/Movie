@@ -1,5 +1,7 @@
-abstract class GenresRepository {
-  Future<String?> getGenre(int id);
+import '../use_cases/use_case_interface.dart';
 
-  Future<Map<int, String>> getGenres();
+abstract class GenresRepository {
+  EitherMovieAPI<String> getGenre(int id);
+
+  Future<EitherMovieAPI<Map<int,String>>> getGenres();
 }

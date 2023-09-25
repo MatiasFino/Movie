@@ -7,7 +7,7 @@ import '../bloc/bloc_impl.dart';
 class MovieGridView extends StatefulWidget {
   MovieGridView({super.key});
 
-  final Bloc movies = BlocImpl();
+  final Bloc bloc = BlocImpl();
 
   @override
   State<MovieGridView> createState() => _MovieGridViewState();
@@ -16,7 +16,7 @@ class MovieGridView extends StatefulWidget {
 class _MovieGridViewState extends State<MovieGridView> {
   @override
   void initState() {
-    widget.movies.fetchNowPlayingMovies();
+    widget.bloc.fetchNowPlayingMovies();
     super.initState();
   }
 
@@ -30,15 +30,10 @@ class _MovieGridViewState extends State<MovieGridView> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: StreamBuilder<List<MovieEntity>>(
-            stream: widget.movies.stream,
+            stream: widget.bloc.movieStream,
             builder: (context, snapshot) {
-              // if (snapshot.hasError) {
-              //   return const Center(
-              //     child: Text('Something went wrong, please try again'),
-              //   );
-              // } else {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                widget.movies.fetchNowPlayingMovies();
+                widget.bloc.fetchNowPlayingMovies();
                 return const CircularProgressIndicator();
               } else {
                 return GridView.builder(
@@ -56,7 +51,11 @@ class _MovieGridViewState extends State<MovieGridView> {
                             MyRouter.movieView,
                             arguments: MovieUI(
                               snapshot.data![index],
-                              ['river'],
+                              snapshot.data![index].genres
+                                  .map(
+                                    (genreId) => widget.bloc.getGenre(genreId),
+                                  )
+                                  .toList(),
                             ),
                           );
                         },

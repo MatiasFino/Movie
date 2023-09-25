@@ -8,7 +8,7 @@ class GetMovieDetailsUseCaseImpl extends GetMovieDetailsUseCase {
   final MovieRepository repository = Get.put(MoviesFromAPI());
 
   @override
-  Future<EitherMovie<MovieEntity>> run(int id) async {
+  Future<EitherMovieAPI<MovieEntity>> run(int id) async {
     return repository.getMovieById(id);
   }
 }
@@ -17,7 +17,7 @@ class GetUpcomingMoviesUseCaseImpl extends GetUpcomingMoviesUseCase {
   final MovieRepository repository = Get.put(MoviesFromAPI());
 
   @override
-  Future<EitherMovie<List<MovieEntity>>> run() async {
+  Future<EitherMovieAPI<List<MovieEntity>>> run() async {
     return repository.getMovies(EndPoint.UPCOMING);
   }
 }
@@ -26,7 +26,7 @@ class GetNowPlayingMoviesUseCaseImpl extends GetNowPlayingMoviesUseCase {
   final MovieRepository repository = Get.put(MoviesFromAPI());
 
   @override
-  Future<EitherMovie<List<MovieEntity>>> run() async {
+  Future<EitherMovieAPI<List<MovieEntity>>> run() async {
     return repository.getMovies(EndPoint.NOW_PLAYING);
   }
 }
@@ -35,7 +35,7 @@ class GetTopRatedMoviesUseCaseImpl extends GetTopRatedMoviesUseCase {
   final MovieRepository repository = Get.put(MoviesFromAPI());
 
   @override
-  Future<EitherMovie<List<MovieEntity>>> run() async {
+  Future<EitherMovieAPI<List<MovieEntity>>> run() async {
     return repository.getMovies(EndPoint.TOP_RATED);
   }
 }
@@ -44,7 +44,7 @@ class GetPopularMoviesUseCaseImpl extends GetPopularMoviesUseCase {
   final MovieRepository repository = Get.put(MoviesFromAPI());
 
   @override
-  Future<EitherMovie<List<MovieEntity>>> run() async {
+  Future<EitherMovieAPI<List<MovieEntity>>> run() async {
     return repository.getMovies(EndPoint.POPULAR);
   }
 }

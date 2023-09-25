@@ -1,19 +1,23 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 import '../../domain/entity/movie.dart';
 import '../../domain/repository/i_movie_repository.dart';
+import '../../domain/repository/service/i_movie_service.dart';
 import '../../domain/use_cases/use_case_interface.dart';
 import '../data_sources/mappers/api_dto.dart';
 import '../data_sources/remote/api_service.dart';
 import '../model/model.dart';
 
 class MoviesFromAPI extends MovieRepository {
+  final MovieService _movieService = Get.put(APIMovieServiceImpl());
+
   @override
-  Future<EitherMovie<MovieEntity>> getMovieById(int id) async {
-    Response res = await MovieService.getMovieById(id);
+  Future<EitherMovieAPI<MovieEntity>> getMovieById(int id) async {
+    http.Response res = await _movieService.getMovieById(id);
     return res.statusCode == 200
         ? right(
             jsonDecode(res.body)
@@ -31,17 +35,17 @@ class MoviesFromAPI extends MovieRepository {
   }
 
   @override
-  Future<EitherMovie<List<MovieEntity>>> getMovies(EndPoint endPoint) async {
-    Response res;
+  Future<EitherMovieAPI<List<MovieEntity>>> getMovies(EndPoint endPoint) async {
+    http.Response res;
     switch (endPoint) {
       case EndPoint.POPULAR:
-        res = await MovieService.getPopularMovies();
+        res = await _movieService.getPopularMovies();
       case EndPoint.NOW_PLAYING:
-        res = await MovieService.getNowPlayingMovies();
+        res = await _movieService.getNowPlayingMovies();
       case EndPoint.TOP_RATED:
-        res = await MovieService.getTopRatedMovies();
+        res = await _movieService.getTopRatedMovies();
       case EndPoint.UPCOMING:
-        res = await MovieService.getUpComingMovies();
+        res = await _movieService.getUpComingMovies();
     }
     return res.statusCode == 200
         ? right(
@@ -51,11 +55,11 @@ class MoviesFromAPI extends MovieRepository {
             ).map((movieModel) => ApiDTO.toMovieEntity(movieModel)).toList(),
           )
         : left(
-      Failure(
-        res.statusCode,
-        res.body,
-      ),
-    );
+            Failure(
+              res.statusCode,
+              res.body,
+            ),
+          );
   }
 }
 
