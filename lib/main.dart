@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'presentation/view/home.dart';
 import 'presentation/view/movie_grid_view.dart';
 import 'presentation/view/movie_list.dart';
 import 'presentation/view/movie_main_widget.dart';
@@ -13,12 +14,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return  SafeArea(
       child: MaterialApp(
+        home: HomeView(),
         theme: ThemeData.dark(),
-        initialRoute: MyRouter.movieGrid,
+        initialRoute: MyRouter.homeView,
         routes: {
-          MyRouter.movieGrid: (context) => MovieGridView(),
+          MyRouter.homeView: (context) => HomeView(),
+          //MyRouter.movieGrid: (context) => MovieGridView(),
           MyRouter.movieView: (context) => const MovieMainWidget(),
         },
       ),
