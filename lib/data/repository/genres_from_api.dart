@@ -10,7 +10,7 @@ import '../../domain/use_cases/use_case_interface.dart';
 import '../data_sources/remote/api_service.dart';
 
 class GenresFromAPI implements GenresRepository {
-  late final Map<int, String> genres;
+  late Map<int, String> genres = {};
   final MovieService _movieService = Get.put(APIMovieServiceImpl());
 
   @override
@@ -22,9 +22,13 @@ class GenresFromAPI implements GenresRepository {
 
   @override
   Future<EitherMovieAPI<Map<int, String>>> getGenres() async {
+    if (genres.isEmpty){
     http.Response res = await _movieService.getGenres();
     return res.statusCode == 200
         ? right(genres = Map.fromIterable(jsonDecode(res.body)['genres'], key: (genreMap) => genreMap['id'] as int, value: (genreMap) => genreMap['name'].toString()))
         : left(Failure(res.statusCode, res.body));
+    }
+    else
+      return right(genres);
   }
 }

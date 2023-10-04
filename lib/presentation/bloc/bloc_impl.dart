@@ -22,31 +22,26 @@ class BlocImpl extends Bloc {
 
   final _genreRepository = Get.put(GenresFromAPI());
   final _moviesStream = StreamController<List<MovieEntity>>();
-  Map<int, String> genres = {};
+  late Map<int, String> genres;
 
   @override
-  String getGenre(int id) => genres[id]!;
+  String getGenre(int id) => _genreRepository.genres[id]!;
 
   @override
   Stream<List<MovieEntity>> get movieStream => _moviesStream.stream;
 
   @override
   void dispose() {
-    _moviesStream.close();
+    //  _moviesStream.close();
   }
 
-  BlocImpl() {
-     initialize();
+  BlocImpl(){
+    fetchGenres();
   }
 
-  void initialize() async {
-    // fetchNowPlayingMovies();
-    genres = await fetchGenres();
-  }
-
-  Future<Map<int, String>> fetchGenres() async {
+  void fetchGenres() async {
     final genresFromRepo = await _genreRepository.getGenres();
-    return genresFromRepo.fold((left) => {}, (genresMap) => genresMap);
+    genresFromRepo.fold((left) => {}, (genresMap) => genres = genresMap);
   }
 
   @override
@@ -64,9 +59,7 @@ class BlocImpl extends Bloc {
         await nowPlayingMoviesUseCase.run();
     movies.fold(
       (left) => _moviesStream.sink.addError(left),
-      (movieList) => _moviesStream.sink.add(
-        (movieList),
-      ),
+      (movieList) => _moviesStream.sink.add(movieList),
     );
   }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'presentation/view/home.dart';
 import 'presentation/view/movie_grid_view.dart';
-import 'presentation/view/movie_list.dart';
+import 'presentation/view/home.dart';
 import 'presentation/view/movie_main_widget.dart';
 import 'config/routes/router.dart';
 
@@ -16,12 +15,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  SafeArea(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: HomeView(),
         theme: ThemeData.dark(),
         initialRoute: MyRouter.homeView,
         routes: {
           MyRouter.homeView: (context) => HomeView(),
-          //MyRouter.movieGrid: (context) => MovieGridView(),
+          MyRouter.movieGrid: (context) => MovieGridView(),
           MyRouter.movieView: (context) => const MovieMainWidget(),
         },
       ),

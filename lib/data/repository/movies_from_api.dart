@@ -47,6 +47,16 @@ class MoviesFromAPI extends MovieRepository {
       case EndPoint.UPCOMING:
         res = await _movieService.getUpComingMovies();
     }
+    // if (res.statusCode == 200) {
+    //   Map<String, dynamic> movies = jsonDecode(res.body)['results'];
+    //   movies.removeWhere((key, value) => value == null);
+    //   return right(
+    //     List.from(
+    //       movies.map((jsonMovie) => MovieModel.fromJson(jsonMovie)),
+    //     ).map((movieModel) => ApiDTO.toMovieEntity(movieModel)).toList(),
+    //   );
+    // }
+
     return res.statusCode == 200
         ? right(
             List.from(
@@ -62,11 +72,3 @@ class MoviesFromAPI extends MovieRepository {
           );
   }
 }
-
-/*
-* Separacion entre Repository / Service
-* Tiene sentido tener el de genres? (para mi, no)
-* Esta bien servicios estaticos?
-* Los servicios, los llamo desde el repositorio o desde los Use cases? Si es desde los use cases, que sentido tiene el repo?
-* Mapeo, se hace en la capa data, Tiene sentido tener el Movies fromJson en entity? no seria conveniente sacarlo de la capa data ya mapeado?
-* */

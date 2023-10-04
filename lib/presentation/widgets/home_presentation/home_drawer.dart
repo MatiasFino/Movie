@@ -16,6 +16,7 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Home'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushNamed(
                 context,
                 MyRouter.homeView,
@@ -25,6 +26,7 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Now Playing'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushNamed(
                 context,
                 MyRouter.movieGrid,
@@ -35,6 +37,7 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Popular'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushNamed(
                 context,
                 MyRouter.movieGrid,
@@ -45,16 +48,18 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Top Rated'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushNamed(
                 context,
                 MyRouter.movieGrid,
-                arguments: MovieCategory.POPULAR,
+                arguments: MovieCategory.TOP_RATED,
               );
             },
           ),
           ListTile(
             title: const Text('Upcoming'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushNamed(
                 context,
                 MyRouter.movieGrid,
