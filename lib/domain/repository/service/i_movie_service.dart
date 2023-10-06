@@ -9,5 +9,4 @@ abstract class MovieService{
    Future<Response> getGenres();
    Future<Response> getSimilarMovies(int id);
    Future<Response> getRecommendedMovies(int id);
-   Future<Response> getMovieById(int id);
 }

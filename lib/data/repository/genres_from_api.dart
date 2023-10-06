@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import '../../domain/repository/i_genre_repository.dart';
 import '../../domain/repository/service/i_movie_service.dart';
 import '../../domain/use_cases/use_case_interface.dart';
+import '../data_sources/remote/api_const.dart';
 import '../data_sources/remote/api_service.dart';
 
 class GenresFromAPI implements GenresRepository {
@@ -24,7 +25,7 @@ class GenresFromAPI implements GenresRepository {
   Future<EitherMovieAPI<Map<int, String>>> getGenres() async {
     if (genres.isEmpty){
     http.Response res = await _movieService.getGenres();
-    return res.statusCode == 200
+    return res.statusCode == API_SUCCESSFUL_RESPONSE_CODE
         ? right(genres = Map.fromIterable(jsonDecode(res.body)['genres'], key: (genreMap) => genreMap['id'] as int, value: (genreMap) => genreMap['name'].toString()))
         : left(Failure(res.statusCode, res.body));
     }

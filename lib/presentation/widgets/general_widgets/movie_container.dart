@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../config/routes/router.dart';
 import '../../../domain/entity/movie.dart';
 
-abstract class MovieListContainer extends StatelessWidget {
+abstract class MovieListContainer extends StatefulWidget {
   final MovieEntity movie;
   final List<String> movieGenres;
   final Image image;
@@ -15,70 +15,96 @@ abstract class MovieListContainer extends StatelessWidget {
   });
 
   @override
+  State<StatefulWidget> createState() => _MovieListContainerState();
+}
+
+class _MovieListContainerState extends State<MovieListContainer>
+    with SingleTickerProviderStateMixin {
+
+  static const int animationDuration = 500;
+  static const int animationSizeMultiplier = 100;
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: animationDuration),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      child: ClipRRect(
-        child: this.image,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned.fill(
+            child: widget.image,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedBuilder(
+                animation: _animationController,
+                builder: (context, child) {
+                  return Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                    size: animationSizeMultiplier * _animationController.value,
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
       ),
       onTap: () {
         Navigator.pushNamed(
           context,
           MyRouter.movieView,
           arguments: MovieUI(
-            movie,
-            movieGenres,
+            widget.movie,
+            widget.movieGenres,
           ),
         );
       },
       onDoubleTap: () {
-        movie.addLike();
+        _animationController.forward().then((_) {
+          _animationController.reverse();
+        });
+        setState(() {
+          widget.movie.addLike();
+        });
       },
     );
   }
 }
 
 class BasicMovieContainer extends MovieListContainer {
-  static const double standardMovieContainerHeight = 600;
-  static const double standardMovieContainerWidth = 400;
+   final double standardMovieContainerHeight = 600;
+   final double standardMovieContainerWidth = 400;
 
   BasicMovieContainer({
     required super.movie,
     required super.movieGenres,
   }) : super(
-          image: Image.network(movie.posterUrl),
-        );
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Container(
-      height: standardMovieContainerHeight,
-      width: standardMovieContainerWidth,
-      child: super.build(context),
-    );
-  }
+    image: Image.network(movie.posterUrl),
+  );
 }
 
 class WideContainer extends MovieListContainer {
 
-  static const double wideMovieContainerHeight = 230;
-  static const double wideMovieContainerWidth = 300;
+  final double wideMovieContainerHeight = 230;
+  final double wideMovieContainerWidth = 300;
 
   WideContainer({
     required super.movie,
     required super.movieGenres,
   }) : super(
-          image: Image.network(movie.backdropUrl),
-        );
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: wideMovieContainerHeight,
-      width: wideMovieContainerWidth,
-      child: super.build(context),
-    );
-  }
+    image: Image.network(movie.backdropUrl),
+  );
 }
 
 enum MovieContainerType {

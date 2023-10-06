@@ -5,11 +5,13 @@ import '../widgets/home_presentation/home_page_view_display.dart';
 
 class HomeView extends StatelessWidget {
 
+  static const double appBarElevation = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(elevation: 0,
+      appBar: AppBar(elevation: appBarElevation,
         backgroundColor: Colors.transparent,
       ),
       drawer: const HomeDrawer(),

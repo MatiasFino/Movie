@@ -1,20 +1,12 @@
+import '../../../data/data_sources/remote/api_service.dart';
 import '../../../data/repository/movies_from_api.dart';
 import '../../entity/movie.dart';
 import '../../repository/i_movie_repository.dart';
 import '../use_case_interface.dart';
 import 'package:get/get.dart';
 
-class GetMovieDetailsUseCaseImpl extends GetMovieDetailsUseCase {
-  final MovieRepository repository = Get.put(MoviesFromAPI());
-
-  @override
-  Future<EitherMovieAPI<MovieEntity>> run(int id) async {
-    return repository.getMovieById(id);
-  }
-}
-
 class GetUpcomingMoviesUseCaseImpl extends GetUpcomingMoviesUseCase {
-  final MovieRepository repository = Get.put(MoviesFromAPI());
+  final MovieRepository repository = Get.put(MoviesFromAPI(movieService: APIMovieServiceImpl()));
 
   @override
   Future<EitherMovieAPI<List<MovieEntity>>> run() async {
@@ -23,7 +15,7 @@ class GetUpcomingMoviesUseCaseImpl extends GetUpcomingMoviesUseCase {
 }
 
 class GetNowPlayingMoviesUseCaseImpl extends GetNowPlayingMoviesUseCase {
-  final MovieRepository repository = Get.put(MoviesFromAPI());
+  final MovieRepository repository = Get.put(MoviesFromAPI(movieService: APIMovieServiceImpl()));
 
   @override
   Future<EitherMovieAPI<List<MovieEntity>>> run() async {
@@ -32,7 +24,7 @@ class GetNowPlayingMoviesUseCaseImpl extends GetNowPlayingMoviesUseCase {
 }
 
 class GetTopRatedMoviesUseCaseImpl extends GetTopRatedMoviesUseCase {
-  final MovieRepository repository = Get.put(MoviesFromAPI());
+  final MovieRepository repository = Get.put(MoviesFromAPI(movieService: APIMovieServiceImpl()));
 
   @override
   Future<EitherMovieAPI<List<MovieEntity>>> run() async {
@@ -41,7 +33,7 @@ class GetTopRatedMoviesUseCaseImpl extends GetTopRatedMoviesUseCase {
 }
 
 class GetPopularMoviesUseCaseImpl extends GetPopularMoviesUseCase {
-  final MovieRepository repository = Get.put(MoviesFromAPI());
+  final MovieRepository repository = Get.put(MoviesFromAPI(movieService: APIMovieServiceImpl()));
 
   @override
   Future<EitherMovieAPI<List<MovieEntity>>> run() async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/ui_constants/text_styles.dart';
 import '../../view/home.dart';
 import 'home_page_view.dart';
 import '../general_widgets/movie_container.dart';
@@ -9,7 +10,10 @@ class HomePageViewDisplay extends StatelessWidget {
     super.key,
   });
 
-  static const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 30);
+  static const double generalPadding = 15;
+  static const double basicContainerWidth = 400;
+  static const double largeContainerHeight = 600;
+  static const double lilContainerWidth = 243;
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +22,18 @@ class HomePageViewDisplay extends StatelessWidget {
       children: [
         Column(
           children: [
-            const Center(
-              child: Text(
-                'Popular',
-                style: style,
+            const Padding(
+              padding: EdgeInsets.only(bottom: generalPadding),
+              child: Center(
+                child: Text(
+                  'Popular',
+                  style: MovieTextStyles.categoriesTextStyle,
+                ),
               ),
             ),
             Container(
-              width: 400,
-              height: 600,
+              width: basicContainerWidth,
+              height: largeContainerHeight,
               child: MoviePageView(
                 movieCategory: MovieCategory.POPULAR,
                 containerType: MovieContainerType.BASIC,
@@ -37,40 +44,38 @@ class HomePageViewDisplay extends StatelessWidget {
         Column(
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.all(generalPadding),
               child: Center(
                 child: Text(
                   'Now Playing',
-                  style: style,
+                  style: MovieTextStyles.categoriesTextStyle,
                 ),
               ),
             ),
-
             Container(
-              width: 400,
-              height: 243,
-              child:
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
+              width: basicContainerWidth,
+              height: lilContainerWidth,
               child: MoviePageView(
                 movieCategory: MovieCategory.NOW_PLAYING,
                 containerType: MovieContainerType.WIDE,
-              ),
               ),
             ),
           ],
         ),
         Column(
           children: [
-            const Center(
-              child: Text(
-                'Top Rated',
-                style: style,
+            const Padding(
+              padding: EdgeInsets.all(generalPadding),
+              child: Center(
+                child: Text(
+                  'Top Rated',
+                  style: MovieTextStyles.categoriesTextStyle,
+                ),
               ),
             ),
             Container(
-              width: 400,
-              height: 230,
+              width: basicContainerWidth,
+              height: lilContainerWidth,
               child: MoviePageView(
                 movieCategory: MovieCategory.TOP_RATED,
                 containerType: MovieContainerType.WIDE,
@@ -80,21 +85,22 @@ class HomePageViewDisplay extends StatelessWidget {
         ),
         Column(
           children: [
-            const Center(
-              child: Text(
-                'Upcoming',
-                style: style,
+            const Padding(
+              padding: EdgeInsets.all(generalPadding),
+              child: Center(
+                child: Text(
+                  'Upcoming',
+                  style: MovieTextStyles.categoriesTextStyle,
+                ),
               ),
             ),
             Container(
-              width: 400,
-              height: 600,
-              child:
-                MoviePageView(
-                  movieCategory: MovieCategory.UPCOMING,
-                  containerType: MovieContainerType.BASIC,
-                ),
-
+              width: basicContainerWidth,
+              height: largeContainerHeight,
+              child: MoviePageView(
+                movieCategory: MovieCategory.UPCOMING,
+                containerType: MovieContainerType.BASIC,
+              ),
             ),
           ],
         ),

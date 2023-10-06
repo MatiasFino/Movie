@@ -52,11 +52,4 @@ class APIMovieServiceImpl implements MovieService{
           '$API_BASE_URL/$API_THIRD_VERSION_PATH/$API_MOVIE_PATH/$id/$API_RECOMMENDATIONS_PATH?$API_KEY',
         ),
       );
-
-   @override
-  Future<Response> getMovieById(int id) async => get(
-        Uri.parse(
-          '$API_BASE_URL/$API_THIRD_VERSION_PATH/$API_MOVIE_PATH/$id?$API_KEY',
-        ),
-      );
 }

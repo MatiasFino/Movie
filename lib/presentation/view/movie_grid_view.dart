@@ -34,13 +34,16 @@ class MovieGridView extends StatelessWidget {
                   crossAxisCount: 2,
                 ),
                 itemBuilder: (context, index) {
-                  return BasicMovieContainer(
-                    movie: snapshot.data![index],
-                    movieGenres: snapshot.data![index].genres
-                        .map(
-                          (genreId) => bloc.getGenre(genreId),
-                        )
-                        .toList(),
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: BasicMovieContainer(
+                      movie: snapshot.data![index],
+                      movieGenres: snapshot.data![index].genres
+                          .map(
+                            (genreId) => bloc.getGenre(genreId),
+                          )
+                          .toList(),
+                    ),
                   );
                 },
               );
@@ -56,10 +59,8 @@ class MovieGridView extends StatelessWidget {
   void initState(MovieCategory movieCategory) {
     switch (movieCategory) {
       case MovieCategory.UPCOMING:
-        {
-          appBarTitle = "Upcoming Movies";
-          bloc.fetchUpcomingMovies();
-        }
+        appBarTitle = "Upcoming Movies";
+        bloc.fetchUpcomingMovies();
       case MovieCategory.NOW_PLAYING:
         appBarTitle = "Now Playing Movies";
         bloc.fetchNowPlayingMovies();

@@ -17,4 +17,5 @@ const API_POPULAR_MOVIES_PATH = 'popular';
 const API_TOP_RATED_PATH = 'top_rated';
 const API_LATEST_MOVIE_PATH = 'latest';
 const API_IMAGES_URL = 'https://image.tmdb.org/t/p/original';
+const API_SUCCESSFUL_RESPONSE_CODE = 200;
 //endregion

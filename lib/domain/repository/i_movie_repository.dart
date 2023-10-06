@@ -5,8 +5,6 @@ abstract class MovieRepository {
 
   Future<EitherMovieAPI<List<MovieEntity>>> getMovies(EndPoint endPoint);
 
-  Future<EitherMovieAPI<MovieEntity>> getMovieById(int id);
-
 }
 
 enum EndPoint {
