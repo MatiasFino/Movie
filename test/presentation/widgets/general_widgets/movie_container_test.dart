@@ -26,7 +26,6 @@ void main() {
       ),
     );
 
-    // Expect to find an InkWell widget.
 
     expect(find.image(NetworkImage(testMovie.posterUrl)), findsOneWidget);
 
@@ -34,11 +33,7 @@ void main() {
 
     expect(inkWell, findsOneWidget);
 
-    // Simulate a single tap on the InkWell.
     await tester.tap(inkWell);
     await tester.pumpAndSettle();
-
-    // Now you can add expectations based on the behavior of the app when navigating.
-    // For example, you can check if a certain route has been pushed to the Navigator.
   });
 }

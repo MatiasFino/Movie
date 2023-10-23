@@ -14,6 +14,7 @@ class MovieGridView extends StatelessWidget {
   });
 
   late final String appBarTitle;
+  static const double containersPadding = 8.0;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class MovieGridView extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(containersPadding),
                       child: BasicMovieContainer(
                         movie: snapshot.data![index],
                         movieGenres: snapshot.data![index].genres

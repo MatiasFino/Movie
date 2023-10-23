@@ -85,6 +85,15 @@ class _MoviePageViewState extends State<MoviePageView>
                           )
                           .toList(),
                     );
+                  default:
+                    return BasicMovieContainer(
+                      movie: snapshot.data![index],
+                      movieGenres: snapshot.data![index].genres
+                          .map(
+                            (genreId) => widget.bloc.getGenre(genreId),
+                      )
+                          .toList(),
+                    );
                 }
               },
             );

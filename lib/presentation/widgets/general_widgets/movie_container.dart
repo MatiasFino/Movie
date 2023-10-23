@@ -83,6 +83,7 @@ class _MovieListContainerState extends State<MovieListContainer>
 }
 
 class BasicMovieContainer extends MovieListContainer {
+
    final double standardMovieContainerHeight = 600;
    final double standardMovieContainerWidth = 400;
 

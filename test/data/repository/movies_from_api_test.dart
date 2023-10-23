@@ -21,83 +21,71 @@ void main() {
       moviesFromAPI = MoviesFromAPI(movieService: mockMovieService);
     });
 
-    final expectedMovie = MovieEntity(
-      id: 912,
-      adult: true,
-      backdrop: "Gonzalo Martinez",
-      genres: [9, 12, 18],
-      originalLanguage: "es",
-      originalTitle: "Muerte en Madrid",
-      overview:
-          "River Asesina a su maximo rival en una final de libertadores unica en la historia que determina quien es mas grande, de manera permanente e irrebocable",
-      popularity: 10,
-      poster: "Javier Pinola",
-      releaseDate: DateTime(2018, 09, 12),
-      video: false,
-      voteAverage: 10.0,
-      voteCount: 91218,
-      title: "River Campeon",
-    );
+    final expectedMovie = MovieEntity.defaultMovie();
 
     final jsonExpectedMovie = {
-      "id": 912,
-      "adult": true,
-      "backdrop_path": "Gonzalo Martinez",
-      "genre_ids": [9, 12, 18],
-      "original_language": "es",
-      "original_title": "Muerte en Madrid",
+      "id": 1,
+      "adult": false,
+      "backdrop_path": "9n2tJBplPbgR2ca05hS5CKXwP2c.jpg",
+      "genre_ids": [
+        12,
+        14,
+        16,
+        36,
+      ],
+      "original_language": "en",
+      "original_title": "The Super Mario Bros. Movie",
       "overview":
-          "River Asesina a su maximo rival en una final de libertadores unica en la historia que determina quien es mas grande, de manera permanente e irrebocable",
+          "While working underground to fix a water main, Brooklyn plumbers and brothers Mario and Luigi are transported down a mysterious pipe and "
+              "wander into a magical new world. But when the brothers are separated"
+              "Mario embarks on an epic quest to find Luigi.",
       "popularity": 10.0,
-      "poster_path": "Javier Pinola",
-      "release_date": "2018-12-09",
+      "poster_path": "qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
+      "release_date": "2023-04-05",
       "video": false,
-      "vote_average": 10.0,
-      "vote_count": 91218,
-      "title": "River Campeon",
+      "vote_average": 7.8,
+      "vote_count": 100,
+      "title": "The Super Mario Bros. Movie",
     };
 
     test('getMovies returns a list of MovieEntity on success', () async {
-      // Arrange
       const endPoint = EndPoint.POPULAR;
       final mockResponse = http.Response(
-        jsonEncode({
-          "results": [jsonExpectedMovie]
-        }),
+        jsonEncode(
+          {
+            "results": [jsonExpectedMovie],
+          },
+        ),
         200,
       );
+
       when(() => mockMovieService.getPopularMovies())
           .thenAnswer((_) async => mockResponse);
 
-      // Act
       final result = await moviesFromAPI.getMovies(endPoint);
 
-      // Assert
       expect(result, isA<Right>());
-      late final rightAnswer;
-      final movies = result.fold(
+
+      result.fold(
         (error) {
           fail('Expected success, but got error: $error');
         },
         (movies) {
           expect(movies, [expectedMovie]);
           expect(movies, hasLength(1));
-          expect(movies[0].id, 912);
+          expect(movies[0].id, expectedMovie.id);
         },
       );
     });
 
     test('getMovies returns a Failure on failure', () async {
-      // Arrange
       const endPoint = EndPoint.POPULAR;
       final mockResponse = http.Response('Error message', 404);
       when(() => mockMovieService.getPopularMovies())
           .thenAnswer((_) async => mockResponse);
 
-      // Act
       final result = await moviesFromAPI.getMovies(endPoint);
 
-      // Assert
       expect(result, isA<Left>());
     });
   });

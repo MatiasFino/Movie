@@ -37,8 +37,4 @@ void main() {
       expect(bloc.genres, equals({}));
     });
 });
-
-  // tearDown(() {
-  //   bloc.dispose(); // Dispose the bloc after each test
-  // });
 }

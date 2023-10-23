@@ -5,31 +5,31 @@ import 'package:flutter_projects/domain/entity/movie.dart';
 import 'package:flutter_projects/presentation/bloc/bloc.dart';
 import 'package:flutter_projects/presentation/view/home.dart';
 import 'package:flutter_projects/presentation/view/movie_grid_view.dart';
-import 'package:flutter_projects/presentation/widgets/general_widgets/movie_container.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 class MockBloc extends Mock implements Bloc {}
-
-class MockContainer extends Mock implements MovieListContainer {
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
-    return super.toString();
-  }
-}
+class MockClient extends Mock implements http.Client{}
+class FakeUri extends Fake implements Uri {}
 
 void main() {
   late final MockBloc mockBloc;
 
-  group('MovieGridView Widget Test', () {
-    setUp(() {
-      mockBloc = MockBloc();
-    });
+  setUp(() {
+    registerFallbackValue(FakeUri());
+  });
+  tearDown(() {});
 
+  MockClient mockHttpClient = MockClient();
+
+  group('MovieGridView Widget Test', () {
     testWidgets('Renders loading indicator when waiting for data',
         (tester) async {
+      mockBloc = MockBloc();
+
       when(() => mockBloc.movieStream)
           .thenAnswer((_) => StreamController<List<MovieEntity>>().stream);
 
@@ -50,6 +50,8 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
+
+
     testWidgets('Renders movie containers when data is available',
         (tester) async {
       final movies = [
@@ -57,9 +59,15 @@ void main() {
         MovieEntity.defaultMovie(),
       ];
 
+      final mockBloc = MockBloc();
+
       final StreamController<List<MovieEntity>> streamController =
-          StreamController<List<MovieEntity>>();
-      streamController.add(movies);
+          await StreamController<List<MovieEntity>>()
+            ..add(movies);
+
+      when(() => mockHttpClient.get(any())).thenAnswer(((_) async {
+        return http.Response("mocked answer", 200);
+      }));
 
       when(() => mockBloc.movieStream)
           .thenAnswer((_) => streamController.stream);

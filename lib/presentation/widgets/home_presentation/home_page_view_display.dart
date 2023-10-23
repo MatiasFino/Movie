@@ -80,7 +80,6 @@ class HomePageViewDisplay extends StatelessWidget {
               ),
             ),
             Container(
-              key: homePageViewTopRatedKey,
               width: basicContainerWidth,
               height: lilContainerWidth,
               child: MoviePageView(
