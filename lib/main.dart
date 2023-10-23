@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'presentation/bloc/bloc_impl.dart';
 import 'presentation/view/movie_grid_view.dart';
 import 'presentation/view/home.dart';
 import 'presentation/view/movie_main_widget.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         initialRoute: MyRouter.homeView,
         routes: {
           MyRouter.homeView: (context) => HomeView(),
-          MyRouter.movieGrid: (context) => MovieGridView(),
+          MyRouter.movieGrid: (context) => MovieGridView(bloc: BlocImpl()),
           MyRouter.movieView: (context) => const MovieMainWidget(),
         },
       ),

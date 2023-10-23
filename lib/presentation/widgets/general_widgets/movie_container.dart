@@ -8,7 +8,7 @@ abstract class MovieListContainer extends StatefulWidget {
   final List<String> movieGenres;
   final Image image;
 
-  MovieListContainer({
+  const MovieListContainer({
     required this.image,
     required this.movie,
     required this.movieGenres,
@@ -65,8 +65,8 @@ class _MovieListContainerState extends State<MovieListContainer>
           context,
           MyRouter.movieView,
           arguments: MovieUI(
-            widget.movie,
-            widget.movieGenres,
+            movie: widget.movie,
+            genres: widget.movieGenres,
           ),
         );
       },
@@ -86,7 +86,7 @@ class BasicMovieContainer extends MovieListContainer {
    final double standardMovieContainerHeight = 600;
    final double standardMovieContainerWidth = 400;
 
-  BasicMovieContainer({
+   BasicMovieContainer({
     required super.movie,
     required super.movieGenres,
   }) : super(

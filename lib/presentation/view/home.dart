@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/utils/ui_constants/keys.dart';
 import '../widgets/home_presentation/home_drawer.dart';
 import '../widgets/home_presentation/home_page_view_display.dart';
 
@@ -14,7 +15,7 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(elevation: appBarElevation,
         backgroundColor: Colors.transparent,
       ),
-      drawer: const HomeDrawer(),
+      drawer: const HomeDrawer(key: homeDrawerKey),
       body: HomePageViewDisplay(),
     );
   }

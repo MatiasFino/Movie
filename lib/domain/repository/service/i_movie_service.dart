@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 
+
 abstract class MovieService{
 
    Future<Response> getNowPlayingMovies();
@@ -7,6 +8,4 @@ abstract class MovieService{
    Future<Response> getTopRatedMovies();
    Future<Response> getUpComingMovies();
    Future<Response> getGenres();
-   Future<Response> getSimilarMovies(int id);
-   Future<Response> getRecommendedMovies(int id);
 }

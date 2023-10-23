@@ -9,12 +9,12 @@ import '../../domain/repository/service/i_movie_service.dart';
 import '../../domain/use_cases/use_case_interface.dart';
 import '../data_sources/mappers/api_dto.dart';
 import '../data_sources/remote/api_const.dart';
+import '../data_sources/remote/api_service.dart';
 import '../model/model.dart';
 
 class MoviesFromAPI extends MovieRepository {
   final MovieService movieService;
-
-  MoviesFromAPI({required this.movieService});
+  const MoviesFromAPI({this.movieService = const APIMovieServiceImpl()});
 
   @override
   Future<EitherMovieAPI<List<MovieEntity>>> getMovies(EndPoint endPoint) async {

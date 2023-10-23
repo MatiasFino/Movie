@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/ui_constants/keys.dart';
+
 class MovieTitle extends StatelessWidget {
   final String movieTitle;
 
@@ -10,8 +12,8 @@ class MovieTitle extends StatelessWidget {
     Color.fromARGB(255, 4, 156, 216),
   ];
 
-  const MovieTitle(
-    this.movieTitle, {
+  const MovieTitle({
+    required this.movieTitle,
     super.key,
   });
 
@@ -19,6 +21,7 @@ class MovieTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     List<TextSpan> title = [];
     return RichText(
+      key: movieTitleKey,
       textAlign: TextAlign.center,
       text: TextSpan(
         children: title.parseTitle(

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/entity/movie.dart';
 import '../../bloc/bloc.dart';
-import '../../bloc/bloc_impl.dart';
 import '../../view/home.dart';
 import '../general_widgets/movie_container.dart';
 
 class MoviePageView extends StatefulWidget {
   final MovieCategory movieCategory;
   final MovieContainerType containerType;
-  final Bloc bloc = new BlocImpl();
+  final Bloc bloc;
 
   MoviePageView({
+    required this.bloc,
     super.key,
     required this.containerType,
     required this.movieCategory,

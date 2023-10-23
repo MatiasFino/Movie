@@ -1,6 +1,5 @@
-import 'package:flutter/foundation.dart';
 
-class MovieEntity{
+class  MovieEntity{
   final bool adult;
   final String backdrop;
   final List<int> genres;
@@ -36,22 +35,8 @@ class MovieEntity{
 
   @override
   bool operator == (Object other) =>
-      // identical(this, other) ||
           other is MovieEntity &&
-              // adult == other.adult &&
-              // backdrop == other.backdrop &&
-              // listEquals(genres, other.genres) &&
               id == other.id ;
-              // originalLanguage == other.originalLanguage &&
-              // originalTitle == other.originalTitle &&
-              // overview == other.overview &&
-              // popularity == other.popularity &&
-              // poster == other.poster &&
-              // releaseDate == other.releaseDate &&
-              // title == other.title &&
-              // video == other.video &&
-              // voteAverage == other.voteAverage &&
-              // voteCount == other.voteCount;
 
   @override
   int get hashCode =>
@@ -111,8 +96,8 @@ class MovieUI {
   final MovieEntity movie;
   final List<String> genres;
 
-  MovieUI(
-    this.movie,
-    this.genres,
-  );
+  const MovieUI({
+    required this.movie,
+    required this.genres,
+  });
 }

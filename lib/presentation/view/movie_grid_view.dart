@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../core/utils/ui_constants/keys.dart';
 import '../../domain/entity/movie.dart';
 import '../bloc/bloc.dart';
-import '../bloc/bloc_impl.dart';
 import '../widgets/general_widgets/movie_container.dart';
 import 'home.dart';
 
 class MovieGridView extends StatelessWidget {
-  MovieGridView({super.key});
+  late final Bloc bloc;
 
-  final Bloc bloc = BlocImpl();
+  MovieGridView({
+    required this.bloc,
+    super.key,
+  });
 
   late final String appBarTitle;
 
@@ -28,30 +31,41 @@ class MovieGridView extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              return GridView.builder(
-                itemCount: snapshot.data!.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: BasicMovieContainer(
-                      movie: snapshot.data![index],
-                      movieGenres: snapshot.data![index].genres
-                          .map(
-                            (genreId) => bloc.getGenre(genreId),
-                          )
-                          .toList(),
-                    ),
-                  );
-                },
-              );
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  key: gridViewBuilderKey,
+                  itemCount: snapshot.data!.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: BasicMovieContainer(
+                        movie: snapshot.data![index],
+                        movieGenres: snapshot.data![index].genres
+                            .map(
+                              (genreId) => bloc.getGenre(genreId),
+                            )
+                            .toList(),
+                      ),
+                    );
+                  },
+                );
+              } else if (snapshot.hasError) {
+                return const Text(
+                  "There was an error loading the movies, please try again later",
+                  key: gridViewSnapshotErrorKey,
+                );
+              } else {
+                return const Text(
+                  "There was an unexpected error, please try again later",
+                  key: gridViewUnexpectedErrorKey,
+                );
+              }
             }
           },
-        )
-        // ),
-        ,
+        ),
       ),
     );
   }

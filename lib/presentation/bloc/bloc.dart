@@ -6,6 +6,6 @@ abstract class Bloc {
   void fetchNowPlayingMovies();
   void fetchTopRatedMovies();
   void fetchUpcomingMovies();
+  String getGenre(int id);
   Stream<List<MovieEntity>> get movieStream;
-  String getGenre (int id);
 }

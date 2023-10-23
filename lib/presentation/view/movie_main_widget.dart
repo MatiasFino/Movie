@@ -67,7 +67,7 @@ class MovieMainWidget extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: largeTopPadding),
-            child: MovieTitle(movieUI.movie.title),
+            child: MovieTitle(movieTitle: movieUI.movie.title),
           ),
           Text(
             movieUI.movie.formattedReleaseDate,
@@ -75,12 +75,14 @@ class MovieMainWidget extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: largeTopPadding),
-            child: Text(
-              movieUI.movie.overview,
-              style: MovieTextStyles.overviewTextStyle,
-              textAlign: TextAlign.center,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: largeTopPadding),
+              child: Text(
+                movieUI.movie.overview,
+                style: MovieTextStyles.overviewTextStyle,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ],

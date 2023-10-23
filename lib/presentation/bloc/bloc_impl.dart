@@ -1,29 +1,14 @@
 import 'dart:async';
 
-import 'package:get/get.dart';
-
-import '../../data/repository/genres_from_api.dart';
 import '../../domain/entity/movie.dart';
 import '../../domain/use_cases/implementations/use_case_impl.dart';
 import '../../domain/use_cases/use_case_interface.dart';
 import 'bloc.dart';
 
 class BlocImpl extends Bloc {
-  final GetPopularMoviesUseCase popularMoviesUseCase =
-  GetPopularMoviesUseCaseImpl();
-  final GetNowPlayingMoviesUseCase nowPlayingMoviesUseCase =
-  GetNowPlayingMoviesUseCaseImpl();
-  final GetTopRatedMoviesUseCase topRatedMoviesUseCase =
-  GetTopRatedMoviesUseCaseImpl();
-  final GetUpcomingMoviesUseCase upcomingMoviesUseCase =
-  GetUpcomingMoviesUseCaseImpl();
-
-  final _genreRepository = Get.put(GenresFromAPI());
+  final UseCases useCases;
   final _moviesStream = StreamController<List<MovieEntity>>();
-  late Map<int, String> genres;
-
-  @override
-  String getGenre(int id) => _genreRepository.genres[id]!;
+  Map<int, String> genres = {};
 
   @override
   Stream<List<MovieEntity>> get movieStream => _moviesStream.stream;
@@ -33,51 +18,55 @@ class BlocImpl extends Bloc {
     //  _moviesStream.close();
   }
 
-  BlocImpl() {
+  BlocImpl({this.useCases = const UseCases()}) {
     fetchGenres();
-  }
-
-  void fetchGenres() async {
-    final genresFromRepo = await _genreRepository.getGenres();
-    genresFromRepo.fold((left) => {}, (genresMap) => genres = genresMap);
   }
 
   @override
   void fetchPopularMovies() async {
-    EitherMovieAPI<List<MovieEntity>> movies = await popularMoviesUseCase.run();
+    EitherMovieAPI<List<MovieEntity>> movies =
+        await useCases.fetchPopularMovies();
     movies.fold(
-          (left) => _moviesStream.sink.addError(left),
-          (movieList) => _moviesStream.sink.add(movieList),
+      (left) => _moviesStream.sink.addError(left),
+      (movieList) => _moviesStream.sink.add(movieList),
     );
   }
 
   @override
   void fetchNowPlayingMovies() async {
     EitherMovieAPI<List<MovieEntity>> movies =
-    await nowPlayingMoviesUseCase.run();
+        await useCases.fetchNowPlayingMovies();
     movies.fold(
-          (left) => _moviesStream.sink.addError(left),
-          (movieList) => _moviesStream.sink.add(movieList),
+      (left) => _moviesStream.sink.addError(left),
+      (movieList) => _moviesStream.sink.add(movieList),
     );
   }
 
   @override
   void fetchTopRatedMovies() async {
     EitherMovieAPI<List<MovieEntity>> movies =
-    await topRatedMoviesUseCase.run();
+        await useCases.fetchTopRatedMovies();
     movies.fold(
-          (left) => _moviesStream.sink.addError(left),
-          (movieList) => _moviesStream.sink.add(movieList),
+      (left) => _moviesStream.sink.addError(left),
+      (movieList) => _moviesStream.sink.add(movieList),
     );
   }
 
   @override
   void fetchUpcomingMovies() async {
     EitherMovieAPI<List<MovieEntity>> movies =
-    await upcomingMoviesUseCase.run();
+        await useCases.fetchUpcomingMovies();
     movies.fold(
-          (left) => _moviesStream.sink.addError(left),
-          (movieList) => _moviesStream.sink.add(movieList),
+      (left) => _moviesStream.sink.addError(left),
+      (movieList) => _moviesStream.sink.add(movieList),
     );
   }
+
+  void fetchGenres() async {
+    EitherMovieAPI<Map<int, String>> genreList = await useCases.fetchGenres();
+    genreList.fold((left) => genres = {}, (right) => this.genres = right);
+  }
+
+  @override
+  String getGenre(int id) => genres[id]!;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../config/routes/router.dart';
+import '../../../core/utils/ui_constants/keys.dart';
 import '../../view/home.dart';
 
 class HomeDrawer extends StatelessWidget {
@@ -13,7 +14,7 @@ class HomeDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          ListTile(
+          ListTile(key: homeTailKey,
             title: const Text('Home'),
             onTap: () {
               Navigator.pop(context);
@@ -23,7 +24,7 @@ class HomeDrawer extends StatelessWidget {
               );
             },
           ),
-          ListTile(
+          ListTile(key: nowPlayingTailKey,
             title: const Text('Now Playing'),
             onTap: () {
               Navigator.pop(context);
@@ -34,7 +35,7 @@ class HomeDrawer extends StatelessWidget {
               );
             },
           ),
-          ListTile(
+          ListTile(key: popularTailKey,
             title: const Text('Popular'),
             onTap: () {
               Navigator.pop(context);
@@ -45,7 +46,7 @@ class HomeDrawer extends StatelessWidget {
               );
             },
           ),
-          ListTile(
+          ListTile(key: topRatedTailKey,
             title: const Text('Top Rated'),
             onTap: () {
               Navigator.pop(context);
@@ -56,7 +57,7 @@ class HomeDrawer extends StatelessWidget {
               );
             },
           ),
-          ListTile(
+          ListTile(key:upcomingTailKey,
             title: const Text('Upcoming'),
             onTap: () {
               Navigator.pop(context);

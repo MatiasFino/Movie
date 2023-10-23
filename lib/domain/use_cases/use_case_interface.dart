@@ -2,34 +2,30 @@ import 'package:dartz/dartz.dart';
 
 import '../entity/movie.dart';
 
-abstract class GetMovieDetailsUseCase {
+mixin GetPopularMoviesUseCase{
 
-  Future<EitherMovieAPI<MovieEntity>> run(int id);
+  Future<EitherMovieAPI<List<MovieEntity>>> fetchPopularMovies();
 }
 
-abstract class GetPopularMoviesUseCase{
+mixin GetNowPlayingMoviesUseCase{
 
-  Future<EitherMovieAPI<List<MovieEntity>>> run();
+  Future<EitherMovieAPI<List<MovieEntity>>> fetchNowPlayingMovies();
 }
 
-abstract class GetNowPlayingMoviesUseCase{
+mixin GetTopRatedMoviesUseCase{
 
-  Future<EitherMovieAPI<List<MovieEntity>>> run();
+  Future<EitherMovieAPI<List<MovieEntity>>> fetchTopRatedMovies();
 }
 
-abstract class GetTopRatedMoviesUseCase{
+mixin GetUpcomingMoviesUseCase{
 
-  Future<EitherMovieAPI<List<MovieEntity>>> run();
+
+  Future<EitherMovieAPI<List<MovieEntity>>> fetchUpcomingMovies();
 }
 
-abstract class GetUpcomingMoviesUseCase{
+mixin GetGenreUseCase {
 
-  Future<EitherMovieAPI<List<MovieEntity>>> run();
-}
-
-abstract class GetSimilarMoviesUseCase{
-
-  Future<EitherMovieAPI<List<MovieEntity>>> run();
+  Future<EitherMovieAPI<Map<int,String>>> fetchGenres();
 }
 
 class Failure {
@@ -40,6 +36,18 @@ class Failure {
       this.code,
       this.message,
       );
+
+  @override
+  bool operator == (Object other) =>
+      // identical(this, other) ||
+  other is Failure &&
+  other.code == this.code &&
+  other.message == this.message;
+
+  @override
+  int get hashCode =>
+      code.hashCode ^
+      message.hashCode;
 }
 
 typedef EitherMovieAPI<T> = Either<Failure, T>;
