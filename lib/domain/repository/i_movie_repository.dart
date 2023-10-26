@@ -7,9 +7,4 @@ abstract class MovieRepository {
   const MovieRepository();
 }
 
-enum EndPoint {
-  POPULAR,
-  TOP_RATED,
-  UPCOMING,
-  NOW_PLAYING,
-}
+

@@ -1,30 +1,13 @@
-import 'package:dartz/dartz.dart';
+
+import 'package:either_dart/either.dart';
 
 import '../entity/movie.dart';
 
-mixin GetPopularMoviesUseCase{
-
-  Future<EitherMovieAPI<List<MovieEntity>>> fetchPopularMovies();
-}
-
-mixin GetNowPlayingMoviesUseCase{
-
-  Future<EitherMovieAPI<List<MovieEntity>>> fetchNowPlayingMovies();
-}
-
-mixin GetTopRatedMoviesUseCase{
-
-  Future<EitherMovieAPI<List<MovieEntity>>> fetchTopRatedMovies();
-}
-
-mixin GetUpcomingMoviesUseCase{
-
-
-  Future<EitherMovieAPI<List<MovieEntity>>> fetchUpcomingMovies();
+mixin GetMoviesUseCase{
+  Future<EitherMovieAPI<List<MovieEntity>>> fetchMoviesByCategory(EndPoint endpoint);
 }
 
 mixin GetGenreUseCase {
-
   Future<EitherMovieAPI<Map<int,String>>> fetchGenres();
 }
 
@@ -39,7 +22,7 @@ class Failure {
 
   @override
   bool operator == (Object other) =>
-      // identical(this, other) ||
+       identical(this, other) ||
   other is Failure &&
   other.code == this.code &&
   other.message == this.message;
@@ -48,6 +31,13 @@ class Failure {
   int get hashCode =>
       code.hashCode ^
       message.hashCode;
+}
+
+enum EndPoint {
+  POPULAR,
+  TOP_RATED,
+  UPCOMING,
+  NOW_PLAYING,
 }
 
 typedef EitherMovieAPI<T> = Either<Failure, T>;

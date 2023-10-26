@@ -20,7 +20,6 @@ abstract class MovieListContainer extends StatefulWidget {
 
 class _MovieListContainerState extends State<MovieListContainer>
     with SingleTickerProviderStateMixin {
-
   static const int animationDuration = 500;
   static const int animationSizeMultiplier = 100;
   late AnimationController _animationController;
@@ -48,7 +47,10 @@ class _MovieListContainerState extends State<MovieListContainer>
             children: [
               AnimatedBuilder(
                 animation: _animationController,
-                builder: (context, child) {
+                builder: (
+                  BuildContext context,
+                  Widget? child,
+                ) {
                   return Icon(
                     Icons.favorite,
                     color: Colors.red,
@@ -80,32 +82,6 @@ class _MovieListContainerState extends State<MovieListContainer>
       },
     );
   }
-}
-
-class BasicMovieContainer extends MovieListContainer {
-
-   final double standardMovieContainerHeight = 600;
-   final double standardMovieContainerWidth = 400;
-
-   BasicMovieContainer({
-    required super.movie,
-    required super.movieGenres,
-  }) : super(
-    image: Image.network(movie.posterUrl),
-  );
-}
-
-class WideContainer extends MovieListContainer {
-
-  final double wideMovieContainerHeight = 230;
-  final double wideMovieContainerWidth = 300;
-
-  WideContainer({
-    required super.movie,
-    required super.movieGenres,
-  }) : super(
-    image: Image.network(movie.backdropUrl),
-  );
 }
 
 enum MovieContainerType {

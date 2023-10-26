@@ -1,21 +1,20 @@
-const STATUS_CODE_OK = 200;
+const status_code_ok = 200;
 
-const IMAGE_ASSETS_FOLDER = 'assets/images';
+const image_assets_folder = 'assets/images';
 
 //region API Routes
-const API_BASE_URL = 'https://api.themoviedb.org';
-const API_THIRD_VERSION_PATH = '3';
-const API_KEY = 'api_key=0d04409c636fcb41c638d670b3ca7583';
-const API_MOVIE_PATH = 'movie';
-const API_GENRE_PATH = 'genre';
-const API_LIST_PATH = 'list';
-const API_SIMILAR_PATH = 'similar';
-const API_NOW_PLAYING_PATH = 'now_playing';
-const API_UPCOMING_PATH = 'upcoming';
-const API_RECOMMENDATIONS_PATH = 'recommendations';
-const API_POPULAR_MOVIES_PATH = 'popular';
-const API_TOP_RATED_PATH = 'top_rated';
-const API_LATEST_MOVIE_PATH = 'latest';
-const API_IMAGES_URL = 'https://image.tmdb.org/t/p/original';
-const API_SUCCESSFUL_RESPONSE_CODE = 200;
+const api_base_url = 'https://api.themoviedb.org/3';
+const api_key = 'api_key=0d04409c636fcb41c638d670b3ca7583';
+const api_movie_path = 'movie';
+const api_genre_path = 'genre';
+const api_list_path = 'list';
+const api_similar_path = 'similar';
+const api_now_playing_path = 'now_playing';
+const api_upcoming_path = 'upcoming';
+const api_recommendations_path = 'recommendations';
+const api_popular_movies_path = 'popular';
+const api_top_rated_path = 'top_rated';
+const api_latest_movie_path = 'latest';
+const api_images_url = 'https://image.tmdb.org/t/p/original';
+const api_successful_response_code = 200;
 //endregion

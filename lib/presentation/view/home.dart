@@ -20,10 +20,3 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-
-enum MovieCategory {
-  POPULAR,
-  TOP_RATED,
-  UPCOMING,
-  NOW_PLAYING,
-}

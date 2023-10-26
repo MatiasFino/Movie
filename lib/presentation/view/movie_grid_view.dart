@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../core/utils/ui_constants/keys.dart';
+import '../../core/utils/ui_constants/strings.dart';
 import '../../domain/entity/movie.dart';
+import '../../domain/use_cases/use_case_interface.dart';
 import '../bloc/bloc.dart';
-import '../widgets/general_widgets/movie_container.dart';
-import 'home.dart';
+import '../widgets/general_widgets/basic_movie_container.dart';
 
 class MovieGridView extends StatelessWidget {
   late final Bloc bloc;
@@ -15,11 +16,16 @@ class MovieGridView extends StatelessWidget {
 
   late final String appBarTitle;
   static const double containersPadding = 8.0;
+  static const gridViewCrossAxisCount = 2;
+
+  void initState(EndPoint endPoint) {
+    bloc.fetchMoviesByCategory(endPoint);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final MovieCategory movieCategory =
-        ModalRoute.of(context)!.settings.arguments as MovieCategory;
+    final EndPoint movieCategory =
+        ModalRoute.of(context)!.settings.arguments as EndPoint;
     initState(movieCategory);
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +34,10 @@ class MovieGridView extends StatelessWidget {
       body: Center(
         child: StreamBuilder<List<MovieEntity>>(
           stream: bloc.movieStream,
-          builder: (context, snapshot) {
+          builder: (
+            BuildContext context,
+            AsyncSnapshot<List<MovieEntity>> snapshot,
+          ) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else {
@@ -37,7 +46,7 @@ class MovieGridView extends StatelessWidget {
                   key: gridViewBuilderKey,
                   itemCount: snapshot.data!.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: gridViewCrossAxisCount,
                   ),
                   itemBuilder: (context, index) {
                     return Padding(
@@ -55,12 +64,12 @@ class MovieGridView extends StatelessWidget {
                 );
               } else if (snapshot.hasError) {
                 return const Text(
-                  "There was an error loading the movies, please try again later",
+                  SnapshotCommonError,
                   key: gridViewSnapshotErrorKey,
                 );
               } else {
                 return const Text(
-                  "There was an unexpected error, please try again later",
+                  SnapshotUnexpectedError,
                   key: gridViewUnexpectedErrorKey,
                 );
               }
@@ -71,20 +80,5 @@ class MovieGridView extends StatelessWidget {
     );
   }
 
-  void initState(MovieCategory movieCategory) {
-    switch (movieCategory) {
-      case MovieCategory.UPCOMING:
-        appBarTitle = "Upcoming Movies";
-        bloc.fetchUpcomingMovies();
-      case MovieCategory.NOW_PLAYING:
-        appBarTitle = "Now Playing Movies";
-        bloc.fetchNowPlayingMovies();
-      case MovieCategory.TOP_RATED:
-        appBarTitle = "Top Rated Movies";
-        bloc.fetchTopRatedMovies();
-      case MovieCategory.POPULAR:
-        appBarTitle = "Popular";
-        bloc.fetchPopularMovies();
-    }
-  }
+
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../config/routes/router.dart';
 import '../../../core/utils/ui_constants/keys.dart';
-import '../../view/home.dart';
+import '../../../core/utils/ui_constants/strings.dart';
+import '../../../domain/use_cases/use_case_interface.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({
@@ -15,56 +16,51 @@ class HomeDrawer extends StatelessWidget {
       child: ListView(
         children: [
           ListTile(key: homeTailKey,
-            title: const Text('Home'),
+            title: const Text(HomeTitle),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(
+              Navigator.popAndPushNamed(
                 context,
                 MyRouter.homeView,
               );
             },
           ),
           ListTile(key: nowPlayingTailKey,
-            title: const Text('Now Playing'),
+            title: const Text(NowPlayingTitle),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(
+              Navigator.popAndPushNamed(
                 context,
                 MyRouter.movieGrid,
-                arguments: MovieCategory.NOW_PLAYING,
+                arguments: EndPoint.NOW_PLAYING,
               );
             },
           ),
           ListTile(key: popularTailKey,
-            title: const Text('Popular'),
+            title: const Text(PopularTitle),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(
+              Navigator.popAndPushNamed(
                 context,
                 MyRouter.movieGrid,
-                arguments: MovieCategory.POPULAR,
+                arguments: EndPoint.POPULAR,
               );
             },
           ),
           ListTile(key: topRatedTailKey,
-            title: const Text('Top Rated'),
+            title: const Text(TopRatedTitle),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(
+              Navigator.popAndPushNamed(
                 context,
                 MyRouter.movieGrid,
-                arguments: MovieCategory.TOP_RATED,
+                arguments: EndPoint.TOP_RATED,
               );
             },
           ),
           ListTile(key:upcomingTailKey,
-            title: const Text('Upcoming'),
+            title: const Text(UpcomingTitle),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(
+              Navigator.popAndPushNamed(
                 context,
                 MyRouter.movieGrid,
-                arguments: MovieCategory.UPCOMING,
+                arguments: EndPoint.UPCOMING,
               );
             },
           ),

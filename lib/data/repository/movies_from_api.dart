@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
+import 'package:either_dart/either.dart';
 import 'package:http/http.dart' as http;
 
 import '../../domain/entity/movie.dart';
@@ -13,34 +13,34 @@ import '../data_sources/remote/api_service.dart';
 import '../model/model.dart';
 
 class MoviesFromAPI extends MovieRepository {
-  final MovieService movieService;
-  const MoviesFromAPI({this.movieService = const APIMovieServiceImpl()});
+  final IMovieService movieService;
+  const MoviesFromAPI({this.movieService = const MovieServiceImpl()});
 
   @override
   Future<EitherMovieAPI<List<MovieEntity>>> getMovies(EndPoint endPoint) async {
-    http.Response res;
+    http.Response response;
     switch (endPoint) {
       case EndPoint.POPULAR:
-        res = await movieService.getPopularMovies();
+        response = await movieService.getPopularMovies();
       case EndPoint.NOW_PLAYING:
-        res = await movieService.getNowPlayingMovies();
+        response = await movieService.getNowPlayingMovies();
       case EndPoint.TOP_RATED:
-        res = await movieService.getTopRatedMovies();
+        response = await movieService.getTopRatedMovies();
       case EndPoint.UPCOMING:
-        res = await movieService.getUpComingMovies();
+        response = await movieService.getUpComingMovies();
     }
 
-    return res.statusCode == API_SUCCESSFUL_RESPONSE_CODE
-        ? right(
+    return response.statusCode == api_successful_response_code
+        ? Right(
             List.from(
-              jsonDecode(res.body)['results']
+              jsonDecode(response.body)['results']
                   .map((jsonMovie) => MovieModel.fromJson(jsonMovie)),
             ).map((movieModel) => ApiDTO.toMovieEntity(movieModel)).toList(),
           )
-        : left(
+        : Left(
             Failure(
-              res.statusCode,
-              res.body,
+              response.statusCode,
+              response.body,
             ),
           );
   }

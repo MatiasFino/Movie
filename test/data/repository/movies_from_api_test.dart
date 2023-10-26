@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
 
-class MockMovieService extends Mock implements MovieService {}
+class MockMovieService extends Mock implements IMovieService {}
 
 void main() {
   group('MoviesFromAPI Tests', () {

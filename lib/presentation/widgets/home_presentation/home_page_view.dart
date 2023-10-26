@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/entity/movie.dart';
+import '../../../domain/use_cases/use_case_interface.dart';
 import '../../bloc/bloc.dart';
-import '../../view/home.dart';
+import '../general_widgets/basic_movie_container.dart';
 import '../general_widgets/movie_container.dart';
+import '../general_widgets/wide_movie_container.dart';
 
 class MoviePageView extends StatefulWidget {
-  final MovieCategory movieCategory;
+  final EndPoint movieCategory;
   final MovieContainerType containerType;
   final Bloc bloc;
 
@@ -23,27 +25,13 @@ class MoviePageView extends StatefulWidget {
 
 class _MoviePageViewState extends State<MoviePageView>
     with AutomaticKeepAliveClientMixin {
-
   @override
   bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
-    switch (widget.movieCategory) {
-      case MovieCategory.UPCOMING:
-        widget.bloc.fetchUpcomingMovies();
-        break;
-      case MovieCategory.NOW_PLAYING:
-        widget.bloc.fetchNowPlayingMovies();
-        break;
-      case MovieCategory.TOP_RATED:
-        widget.bloc.fetchTopRatedMovies();
-        break;
-      case MovieCategory.POPULAR:
-        widget.bloc.fetchPopularMovies();
-        break;
-    }
+    widget.bloc.fetchMoviesByCategory(widget.movieCategory);
   }
 
   @override
@@ -65,7 +53,10 @@ class _MoviePageViewState extends State<MoviePageView>
             return PageView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: snapshot.data!.length,
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (
+                BuildContext context,
+                int index,
+              ) {
                 switch (widget.containerType) {
                   case MovieContainerType.BASIC:
                     return BasicMovieContainer(
@@ -91,7 +82,7 @@ class _MoviePageViewState extends State<MoviePageView>
                       movieGenres: snapshot.data![index].genres
                           .map(
                             (genreId) => widget.bloc.getGenre(genreId),
-                      )
+                          )
                           .toList(),
                     );
                 }
