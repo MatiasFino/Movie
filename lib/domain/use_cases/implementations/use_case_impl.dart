@@ -1,3 +1,4 @@
+import '../../../core/utils/data_state.dart';
 import '../../../data/repository/genres_from_api.dart';
 import '../../../data/repository/movies_from_api.dart';
 import '../../entity/movie.dart';
@@ -15,13 +16,12 @@ class UseCases with GetGenreUseCase, GetMoviesUseCase {
   });
 
   @override
-  Future<EitherMovieAPI<Map<int, String>>> fetchGenres() {
+  Future<DataState<Map<int, String>>> fetchGenres() {
     return genresRepository.getGenres();
   }
 
   @override
-  Future<EitherMovieAPI<List<MovieEntity>>> fetchMoviesByCategory(
-      EndPoint endPoint) {
+  Future<DataState<List<MovieEntity>>> fetchMoviesByCategory(EndPoint endPoint) {
     return repository.getMovies(endPoint);
   }
 }

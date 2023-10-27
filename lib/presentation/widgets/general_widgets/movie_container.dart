@@ -84,7 +84,3 @@ class _MovieListContainerState extends State<MovieListContainer>
   }
 }
 
-enum MovieContainerType {
-  BASIC,
-  WIDE,
-}

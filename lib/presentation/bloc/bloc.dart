@@ -1,5 +1,5 @@
+import '../../core/utils/data_state.dart';
 import '../../domain/entity/movie.dart';
-import '../../domain/use_cases/use_case_interface.dart';
 
 abstract class Bloc {
   void dispose();

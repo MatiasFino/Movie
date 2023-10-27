@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../core/utils/data_state.dart';
 import '../../core/utils/ui_constants/keys.dart';
 import '../../core/utils/ui_constants/strings.dart';
 import '../../domain/entity/movie.dart';
-import '../../domain/use_cases/use_case_interface.dart';
 import '../bloc/bloc.dart';
 import '../widgets/general_widgets/basic_movie_container.dart';
 
@@ -20,6 +20,13 @@ class MovieGridView extends StatelessWidget {
 
   void initState(EndPoint endPoint) {
     bloc.fetchMoviesByCategory(endPoint);
+    appBarTitle = endPoint == EndPoint.NOW_PLAYING
+        ? NowPlayingTitle
+        : endPoint == EndPoint.UPCOMING
+            ? UpcomingTitle
+            : endPoint == EndPoint.TOP_RATED
+                ? TopRatedTitle
+                : PopularTitle;
   }
 
   @override
@@ -30,6 +37,7 @@ class MovieGridView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(appBarTitle),
+        centerTitle: true,
       ),
       body: Center(
         child: StreamBuilder<List<MovieEntity>>(
@@ -79,6 +87,4 @@ class MovieGridView extends StatelessWidget {
       ),
     );
   }
-
-
 }

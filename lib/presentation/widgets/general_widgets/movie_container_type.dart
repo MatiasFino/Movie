@@ -1,0 +1,4 @@
+enum MovieContainerType {
+  BASIC,
+  WIDE,
+}

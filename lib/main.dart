@@ -19,9 +19,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: HomeView(),
         theme: ThemeData.dark(),
-        initialRoute: MyRouter.homeView,
+        initialRoute: Navigator.defaultRouteName,
         routes: {
-          MyRouter.homeView: (context) => HomeView(),
           MyRouter.movieGrid: (context) => MovieGridView(bloc: BlocImpl()),
           MyRouter.movieView: (context) => const MovieMainWidget(),
         },

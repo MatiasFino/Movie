@@ -1,9 +1,8 @@
 import 'dart:async';
 
+import '../../core/utils/data_state.dart';
 import '../../domain/entity/movie.dart';
-import '../../domain/repository/i_movie_repository.dart';
 import '../../domain/use_cases/implementations/use_case_impl.dart';
-import '../../domain/use_cases/use_case_interface.dart';
 import 'bloc.dart';
 
 class BlocImpl extends Bloc {
@@ -16,7 +15,7 @@ class BlocImpl extends Bloc {
 
   @override
   void dispose() {
-    //  _moviesStream.close();
+      _moviesStream.close();
   }
 
   BlocImpl({this.useCases = const UseCases()}) {
@@ -25,18 +24,19 @@ class BlocImpl extends Bloc {
 
   @override
   void fetchMoviesByCategory(EndPoint endPoint) async {
-    EitherMovieAPI<List<MovieEntity>> movies =
+    DataState<List<MovieEntity>> movies =
         await useCases.fetchMoviesByCategory(endPoint);
-    movies.fold(
-      (left) => _moviesStream.sink.addError(left),
-      (movieList) => _moviesStream.sink.add(movieList),
-    );
+    if (movies is SuccessState){
+    _moviesStream.sink.add(movies.data!);
+    } else {
+      _moviesStream.addError(movies.failure!);
+    }
   }
 
   void fetchGenres() async {
-    EitherMovieAPI<Map<int, String>> genreList = await useCases.fetchGenres();
-    genreList.fold((left) => genres = {}, (right) => this.genres = right);
-  }
+    DataState<Map<int, String>> genreList = await useCases.fetchGenres();
+    genres = genreList.data ?? {};
+    }
 
   @override
   String getGenre(int id) => genres[id]!;

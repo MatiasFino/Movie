@@ -1,6 +1,6 @@
-import '../use_cases/use_case_interface.dart';
+import '../../core/utils/data_state.dart';
 
 abstract class GenresRepository {
   const GenresRepository();
-  Future<EitherMovieAPI<Map<int,String>>> getGenres();
+  Future<DataState<Map<int,String>>> getGenres();
 }

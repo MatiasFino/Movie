@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../config/routes/router.dart';
+import '../../../core/utils/data_state.dart';
 import '../../../core/utils/ui_constants/keys.dart';
 import '../../../core/utils/ui_constants/strings.dart';
-import '../../../domain/use_cases/use_case_interface.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({
@@ -20,7 +20,7 @@ class HomeDrawer extends StatelessWidget {
             onTap: () {
               Navigator.popAndPushNamed(
                 context,
-                MyRouter.homeView,
+                Navigator.defaultRouteName,
               );
             },
           ),

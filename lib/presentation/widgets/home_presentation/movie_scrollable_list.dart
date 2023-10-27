@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/data_state.dart';
 import '../../../core/utils/ui_constants/keys.dart';
 import '../../../core/utils/ui_constants/strings.dart';
 import '../../../core/utils/ui_constants/text_styles.dart';
-import '../../../domain/use_cases/use_case_interface.dart';
 import '../../bloc/bloc.dart';
-import '../general_widgets/movie_container.dart';
+import '../general_widgets/movie_container_type.dart';
 import 'home_page_view.dart';
 
 class MovieScrollableList extends StatelessWidget {
   static const double generalPadding = 15;
   static const double basicContainerWidth = 400;
   static const double largeContainerHeight = 600;
+  static const double lilContainerHeight = 300;
   static const double lilContainerWidth = 243;
 
   MovieScrollableList({
@@ -41,12 +42,23 @@ class MovieScrollableList extends StatelessWidget {
               ? NowPlayingTitle
               : PopularTitle;
 
+  late final containerWidth = movieContainerType == MovieContainerType.BASIC
+      ? basicContainerWidth
+      : largeContainerHeight;
+
+  late final containerHeight = movieContainerType == MovieContainerType.BASIC
+      ? largeContainerHeight
+      : lilContainerHeight;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: generalPadding),
+          padding: const EdgeInsets.only(
+            bottom: generalPadding,
+            top: generalPadding,
+          ),
           child: Center(
             child: Text(
               title,
@@ -55,8 +67,8 @@ class MovieScrollableList extends StatelessWidget {
           ),
         ),
         Container(
-          width: basicContainerWidth,
-          height: largeContainerHeight,
+          width: containerWidth,
+          height: containerHeight,
           child: MoviePageView(
             key: key,
             bloc: bloc,

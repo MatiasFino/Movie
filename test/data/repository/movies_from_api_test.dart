@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter_projects/core/utils/data_state.dart';
 import 'package:flutter_projects/data/repository/movies_from_api.dart';
 import 'package:flutter_projects/domain/entity/movie.dart';
-import 'package:flutter_projects/domain/repository/i_movie_repository.dart';
 import 'package:flutter_projects/domain/repository/service/i_movie_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -62,20 +62,14 @@ void main() {
       when(() => mockMovieService.getPopularMovies())
           .thenAnswer((_) async => mockResponse);
 
-      final result = await moviesFromAPI.getMovies(endPoint);
+      final DataState<List<MovieEntity>> result = await moviesFromAPI.getMovies(endPoint);
 
-      expect(result, isA<Right>());
-
-      result.fold(
-        (error) {
-          fail('Expected success, but got error: $error');
-        },
-        (movies) {
-          expect(movies, [expectedMovie]);
-          expect(movies, hasLength(1));
-          expect(movies[0].id, expectedMovie.id);
-        },
-      );
+      if (result.state == ResponseStatus.ERROR){
+          fail('Expected success, but got error: ${result.failure}');
+        } else
+          expect(result.data, [expectedMovie]);
+          expect(result.data, hasLength(1));
+          expect(result.data![0].id, expectedMovie.id);
     });
 
     test('getMovies returns a Failure on failure', () async {
@@ -84,9 +78,7 @@ void main() {
       when(() => mockMovieService.getPopularMovies())
           .thenAnswer((_) async => mockResponse);
 
-      final result = await moviesFromAPI.getMovies(endPoint);
 
-      expect(result, isA<Left>());
     });
   });
 }

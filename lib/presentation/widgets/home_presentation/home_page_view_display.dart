@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/use_cases/use_case_interface.dart';
+import '../../../core/utils/data_state.dart';
 import '../../bloc/bloc_impl.dart';
-import 'MovieScrollableList.dart';
-import '../general_widgets/movie_container.dart';
+import '../general_widgets/movie_container_type.dart';
+import 'movie_scrollable_list.dart';
 
 class HomePageViewDisplay extends StatelessWidget {
   HomePageViewDisplay({
@@ -15,10 +15,7 @@ class HomePageViewDisplay extends StatelessWidget {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
-        MovieScrollableList(
-          bloc: BlocImpl(),
-          movieContainerType: MovieContainerType.WIDE,
-        ),
+        MovieScrollableList(bloc: BlocImpl()),
         MovieScrollableList(
           bloc: BlocImpl(),
           movieCategory: EndPoint.NOW_PLAYING,
@@ -27,6 +24,7 @@ class HomePageViewDisplay extends StatelessWidget {
         MovieScrollableList(
           bloc: BlocImpl(),
           movieCategory: EndPoint.TOP_RATED,
+          movieContainerType: MovieContainerType.WIDE,
         ),
         MovieScrollableList(
           bloc: BlocImpl(),

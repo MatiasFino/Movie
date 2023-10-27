@@ -25,14 +25,14 @@ class MovieServiceImpl implements IMovieService {
   @override
   Future<Response> getTopRatedMovies() async => get(
         Uri.parse(
-          '$api_base_url/$api_movie_path/$api_top_rated_path/?$api_key',
+          '$api_base_url/$api_movie_path/$api_top_rated_path?$api_key',
         ),
       );
 
   @override
   Future<Response> getUpComingMovies() async => get(
         Uri.parse(
-          '$api_base_url/$api_movie_path/$api_upcoming_path/?$api_key',
+          '$api_base_url/$api_movie_path/$api_upcoming_path?$api_key',
         ),
       );
 

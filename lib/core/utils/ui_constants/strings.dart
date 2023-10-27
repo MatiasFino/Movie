@@ -4,7 +4,7 @@ const String SnapshotUnexpectedError = "There was an unexpected error, please tr
 // Titles
 const String HomeTitle = 'Home';
 const String PopularTitle = 'Popular';
-const String NowPlayingTitle = 'Home';
-const String UpcomingTitle = 'Home';
-const String TopRatedTitle = 'Home';
+const String NowPlayingTitle = 'Now Playing';
+const String UpcomingTitle = 'Upcoming';
+const String TopRatedTitle = 'Top Rated';
 // EndTitles

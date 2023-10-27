@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/data_state.dart';
 import '../../../domain/entity/movie.dart';
-import '../../../domain/use_cases/use_case_interface.dart';
 import '../../bloc/bloc.dart';
 import '../general_widgets/basic_movie_container.dart';
-import '../general_widgets/movie_container.dart';
+import '../general_widgets/movie_container_type.dart';
 import '../general_widgets/wide_movie_container.dart';
 
 class MoviePageView extends StatefulWidget {
