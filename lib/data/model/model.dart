@@ -1,3 +1,4 @@
+
 import '../../domain/entity/movie.dart';
 
 class MovieModel extends MovieEntity {
@@ -43,10 +44,11 @@ class MovieModel extends MovieEntity {
         overview: json['overview'],
         popularity: json['popularity'],
         poster: json['poster_path'],
-        releaseDate: DateTime.parse(json['release_date']),
+        releaseDate: json['release_date'],
         title: json['title'],
         video: json['video'],
         voteAverage: json['vote_average'].toDouble(),
         voteCount: json['vote_count'],
       );
+
 }

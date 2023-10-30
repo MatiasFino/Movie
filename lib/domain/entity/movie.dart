@@ -1,15 +1,22 @@
 
+import 'package:floor/floor.dart';
+
+import '../../core/utils/data_state.dart';
+
+@entity
 class  MovieEntity{
+  List<EndPoint> categories = [];
   final bool adult;
   final String backdrop;
   final List<int> genres;
+  @primaryKey
   final int id;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
   final double popularity;
   final String poster;
-  final DateTime releaseDate;
+  final String releaseDate;
   final String title;
   final bool video;
   final double voteAverage;
@@ -57,7 +64,7 @@ class  MovieEntity{
 
 
   String get formattedReleaseDate =>
-      '${releaseDate.day}/${releaseDate.month}/${releaseDate.year}';
+      releaseDate;
 
   String get backdropUrl => "https://image.tmdb.org/t/p/w500$backdrop";
 
@@ -84,7 +91,7 @@ class  MovieEntity{
             "Mario embarks on an epic quest to find Luigi.",
         popularity: 10,
         poster: 'qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg',
-        releaseDate: DateTime.parse('2023-04-05'),
+        releaseDate: '2023-04-05',
         title: 'The Super Mario Bros. Movie',
         video: false,
         voteAverage: 7.8,
