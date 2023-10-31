@@ -16,16 +16,3 @@ class IntListConverter extends TypeConverter<List<int>, String> {
     return json.encode(value);
   }
 }
-
-class ListEndPointConverter extends TypeConverter<List<EndPoint>, String> {
-  @override
-  List<EndPoint> decode(String databaseValue) {
-    final List<String> parsedList = json.decode(databaseValue);
-    return parsedList.map((stringCategory) => EndPointExtension.fromString(stringCategory)).toList();
-  }
-
-  @override
-  String encode(List<EndPoint> value) {
-    return json.encode(value.map((category) => category.stringValue));
-  }
-}

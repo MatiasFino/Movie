@@ -32,7 +32,9 @@ class Stars extends StatelessWidget {
       widgets.add(const Icon(
         ratingIcon,
         color: Colors.grey,
-      ));
+        ),
+      );
+
     }
     widgets.add(
       ShaderMask(
