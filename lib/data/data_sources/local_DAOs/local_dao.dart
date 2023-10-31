@@ -11,4 +11,7 @@ Stream<MovieEntity?> findMovieById(int id);
 @Query('SELECT * FROM Movie WHERE category = :category')
 Stream<MovieEntity?> findMoviesByCategory(String category);
 
+@insert
+Future<void> insertMovie(MovieEntity movieEntity);
+
 }

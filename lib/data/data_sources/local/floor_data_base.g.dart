@@ -103,13 +103,37 @@ class _$MovieDao extends MovieDao {
   _$MovieDao(
     this.database,
     this.changeListener,
-  ) : _queryAdapter = QueryAdapter(database, changeListener);
+  )   : _queryAdapter = QueryAdapter(database, changeListener),
+        _movieEntityInsertionAdapter = InsertionAdapter(
+            database,
+            'MovieEntity',
+            (MovieEntity item) => <String, Object?>{
+                  'categories': _endPointListConverter.encode(item.categories),
+                  'adult': item.adult ? 1 : 0,
+                  'backdrop': item.backdrop,
+                  'genres': _intListConverter.encode(item.genres),
+                  'id': item.id,
+                  'originalLanguage': item.originalLanguage,
+                  'originalTitle': item.originalTitle,
+                  'overview': item.overview,
+                  'popularity': item.popularity,
+                  'poster': item.poster,
+                  'releaseDate': item.releaseDate,
+                  'title': item.title,
+                  'video': item.video ? 1 : 0,
+                  'voteAverage': item.voteAverage,
+                  'voteCount': item.voteCount,
+                  'likes': item.likes
+                },
+            changeListener);
 
   final sqflite.DatabaseExecutor database;
 
   final StreamController<String> changeListener;
 
   final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<MovieEntity> _movieEntityInsertionAdapter;
 
   @override
   Stream<MovieEntity?> findMovieById(int id) {
@@ -155,6 +179,12 @@ class _$MovieDao extends MovieDao {
         arguments: [category],
         queryableName: 'Movie',
         isView: false);
+  }
+
+  @override
+  Future<void> insertMovie(MovieEntity movieEntity) async {
+    await _movieEntityInsertionAdapter.insert(
+        movieEntity, OnConflictStrategy.abort);
   }
 }
 

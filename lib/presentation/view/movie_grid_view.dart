@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/utils/data_state.dart';
 import '../../core/utils/ui_constants/keys.dart';
 import '../../core/utils/ui_constants/strings.dart';
+import '../../data/data_sources/local/floor_data_base_controller.dart';
 import '../../domain/entity/movie.dart';
 import '../bloc/bloc.dart';
 import '../widgets/general_widgets/basic_movie_container.dart';
@@ -17,6 +18,7 @@ class MovieGridView extends StatelessWidget {
   late final String appBarTitle;
   static const double containersPadding = 8.0;
   static const gridViewCrossAxisCount = 2;
+  final DBController dbController = DBController();
 
   void initState(EndPoint endPoint) {
     bloc.fetchMoviesByCategory(endPoint);
